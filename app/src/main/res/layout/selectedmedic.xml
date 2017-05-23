@@ -19,7 +19,7 @@
         android:id="@+id/supprimer" />
 
     <Button
-        android:text="Button"
+        android:text="Obtenir des informations sur ce médicament"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/info" />

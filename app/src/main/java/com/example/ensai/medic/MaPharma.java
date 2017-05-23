@@ -64,30 +64,21 @@ public class MaPharma extends Activity {
                         n.putExtra("position", position);
                         Log.i("Envoi",""+ mes_medic.getItemAtPosition(position).toString());
                         try {
-                            /*
-                            //pour afficher juste la pharmacie choisie
-                            String uri = "http://maps.google.com/maps?saddr=" + coordonnees.getLatitude()+","+coordonnees.getLongitude()+"&daddr="+resultats.getItemAtPosition(position).toString();
-                            Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(uri));
-                            intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
-                            startActivity(intent);
-
-*/
+                            Log.i("Envoi",""+1);
+                            Intent i = new Intent(getApplicationContext(), SelectedMedic.class);
+                            Log.i("Envoi",""+2);
+                            i.putExtra("monmedic", mes_medic.getItemAtPosition(position).toString());
+                            Log.i("Envoi",""+3);
+                            startActivity(i);
+                            Log.i("Envoi",""+4);
                         } catch(ActivityNotFoundException e) {
+                            Log.i("erreur",""+e.getMessage());
                             (Toast.makeText(getApplicationContext(), "GoogleMap non trouvé", Toast.LENGTH_LONG)).show();
                         }
                         //test
                         // startActivity(n);
                     }
                 });
-
-
-
-
-
-
-
-
-
             }
         }); // fin runOnUiThread
 

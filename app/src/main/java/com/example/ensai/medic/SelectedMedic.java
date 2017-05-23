@@ -1,6 +1,7 @@
 package com.example.ensai.medic;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
@@ -13,26 +14,16 @@ public class SelectedMedic extends Activity {
     TextView tv;
     Button sup;
     Button info;
-
-    protected void onCreate(Bundle savedInstanceState,String monMedic) {
+    String monMedic="Médicament sélectionné : ";
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.selectedmedic);
         tv=(TextView) findViewById(R.id.selectedmedic);
-        tv.setText(monMedic);
+        Intent intent = getIntent();
+        String medic =intent.getExtras().getString("monmedic");
+        tv.setText(monMedic+medic);
         sup=(Button) findViewById(R.id.supprimer);
         info=(Button) findViewById(R.id.info);
-
-
-
-
-
-
-
-
-
-
-
-
 
     }
 }
