@@ -119,7 +119,7 @@ public class MedicDAO {
     }
     public void deleteMedicName(String name) {
         open();
-        database.delete("pharmacie", "nom" + "=" + name, null);
+        database.execSQL("DELETE from pharmacie where nom='"+name+"';");
         close();
     }
 

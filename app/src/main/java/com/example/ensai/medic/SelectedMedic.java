@@ -35,6 +35,8 @@ public class SelectedMedic extends Activity {
     public void suppresion(View v) {
         MedicDAO dao=new MedicDAO(this);
         dao.deleteMedicName(nomMedic);
+        Intent i=new Intent(this,MaPharma.class);
+        startActivity(i);
     }
     public void information(View v) {
         String cis="61903804";
