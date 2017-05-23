@@ -9,7 +9,7 @@ public class Medic {
     int idMedic;
     String codeCIS;
     //int quantity;
-    public Medic(int idMedic,String codeCIS,String name){
+    public Medic(int idMedic,String name,String codeCIS){
         super();
         this.setName(name);
         this.setIdMedic(idMedic);

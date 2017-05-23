@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -39,8 +40,12 @@ public class SelectedMedic extends Activity {
         startActivity(i);
     }
     public void information(View v) {
-        String cis="61903804";
-        String url="http://base-donnees-publique.medicaments.gouv.fr/affichageDoc.php?specid="+cis+"&typedoc=R";
+        MedicDAO dao=new MedicDAO(this);
+        Medic m=dao.getMedicFromName(nomMedic);
+        Log.i("monId",""+m.getIdMedic());
+        Log.i("monCIS ", m.getCodeCIS());
+        Log.i("monName ", m.getName());
+        String url="http://base-donnees-publique.medicaments.gouv.fr/affichageDoc.php?specid="+ m.getCodeCIS()+"&typedoc=R";
         Uri uriUrl = Uri.parse(url);
         Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
         startActivity(launchBrowser);

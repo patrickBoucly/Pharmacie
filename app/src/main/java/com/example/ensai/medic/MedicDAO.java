@@ -20,12 +20,10 @@ import android.util.Log;
 
 
 public class MedicDAO {
-    public static final String SAVE = "INSERT INTO pharmacie VALUES (NULL, ?, ?);";
-    // Champs de la base de données
     private SQLiteDatabase database;
     private MySQLiteHelper dbHelper;
-    private String[] allColumns = { MySQLiteHelper.COLUMN_ID,MySQLiteHelper.COLUMN_CIS,
-            MySQLiteHelper.COLUMN_Name};
+    private String[] allColumns = { MySQLiteHelper.COLUMN_ID,MySQLiteHelper.COLUMN_Name,MySQLiteHelper.COLUMN_CIS,
+            };
 
     public MedicDAO(Context context) {
         dbHelper = new MySQLiteHelper(context);
@@ -39,43 +37,10 @@ public class MedicDAO {
         dbHelper.close();
     }
     public void add(String name,String cis){
-
-        SQLiteStatement statement = database.compileStatement(SAVE);
-
-        statement.bindString(1, name);
-        statement.bindString(2, cis);
-
-        statement.execute();
-
-        statement.close();
-
+        open();
+        database.execSQL("INSERT INTO pharmacie(nom,cis) VALUES('"+name+"','"+cis+"');");
+        close();
     }
-
-    /*
-    public Medic createMedic(String name,String cis) {
-        ContentValues values = new ContentValues();
-        values.put(MySQLiteHelper.COLUMN_CIS, cis);
-        values.put(MySQLiteHelper.COLUMN_Name, name);
-       /* String res="";
-        for(String key :values.keySet()){
-            res+=key+"    ";
-        }
-
-        Log.i("key     ",""+res);
-
-
-        long insertId = database.insert(MySQLiteHelper.TABLE_PHARMACIE, null,
-                values);
-
-        Cursor cursor = database.query(MySQLiteHelper.TABLE_PHARMACIE,
-                allColumns, MySQLiteHelper.COLUMN_ID + " = " + insertId, null,
-                null, null, null);
-        cursor.moveToFirst();
-        Medic newMedic = cursorToMedic(cursor);
-        cursor.close();
-        return newMedic;
-    }*/
-
 
     public void deleteMedicCIS(Medic medic) {
         String cis = medic.getCodeCIS();
@@ -83,9 +48,46 @@ public class MedicDAO {
         database.delete(MySQLiteHelper.TABLE_PHARMACIE, MySQLiteHelper.COLUMN_CIS
                 + " = " + cis, null);
     }
-
-
-
+    public Medic getMedicFromName(String name){
+        open();
+        Medic res;
+        String[] tableColumns = new String[] {
+                "id",
+                "nom",
+                "cis"
+        };
+        String whereClause = "nom=?";
+        String[] whereArgs = new String[] {
+                name
+        };
+        Cursor cursor = database.query("pharmacie", tableColumns, whereClause, whereArgs,
+                null, null, null);
+        cursor.moveToFirst();
+        res=cursorToMedic(cursor);
+        cursor.close();
+        close();
+        return res;
+    }
+    public Medic getMedicFromCIS(String cis){
+        Medic res;
+        open();
+        String[] tableColumns = new String[] {
+                "id",
+                "nom",
+                "cis"
+        };
+        String whereClause = "cis=?";
+        String[] whereArgs = new String[] {
+                cis
+        };
+        Cursor cursor = database.query("pharmacie", tableColumns, whereClause, whereArgs,
+                null, null, null);
+        cursor.moveToFirst();
+        res=cursorToMedic(cursor);
+        cursor.close();
+        close();
+        return res;
+    }
     public List<Medic> getAllMedics() {
         List<Medic> medics = new ArrayList<Medic>();
 
@@ -98,11 +100,9 @@ public class MedicDAO {
             medics.add(medic);
             cursor.moveToNext();
         }
-        // assurez-vous de la fermeture du curseur
         cursor.close();
         return medics;
     }
-
     private Medic cursorToMedic(Cursor cursor) {
         Medic medic = new Medic(cursor.getInt(0),cursor.getString(1),cursor.getString(2));
         return medic;

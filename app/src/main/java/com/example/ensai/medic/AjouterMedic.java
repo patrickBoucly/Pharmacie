@@ -96,7 +96,7 @@ public class AjouterMedic extends Activity implements View.OnClickListener,Adapt
                                 String code = ""+jsonobject.getInt("codeCIS");
                                 /*Log.d("test1", denom);
                                 Log.d("test2", code);*/
-                                medics.add(new Medic(1,code,denom));
+                                medics.add(new Medic(1,denom,code));
                             }
                         } catch (JSONException exc) {
 
@@ -118,7 +118,9 @@ public class AjouterMedic extends Activity implements View.OnClickListener,Adapt
                                     public void onItemClick(AdapterView<?> arg0,View arg1, int position, long id){
                                             medicDAO.open();
                                             String name=medics.get(position).getName();
+                                            Log.i("ici, name : ",name);
                                             String cis=medics.get(position).getCodeCIS().toString();
+                                        Log.i("ici, cis : ",cis);
                                             Toast.makeText(getApplicationContext(), "cis: "+cis, Toast.LENGTH_LONG).show();
                                             medicDAO.add(name,cis);
                                             Intent n = new Intent(getApplicationContext(), MaPharma.class);
