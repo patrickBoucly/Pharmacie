@@ -215,7 +215,7 @@ public class AjouterMedic extends Activity implements View.OnClickListener,Adapt
                                             String name=medics.get(position).getName();
 
                                         String name1=name.replace(',','_');
-                                        
+
                                         String name2="test";
 
                                             String cis=medics.get(position).getCodeCIS().toString();
