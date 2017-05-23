@@ -213,9 +213,14 @@ public class AjouterMedic extends Activity implements View.OnClickListener,Adapt
 
                                             medicDAO.open();
                                             String name=medics.get(position).getName();
+
+                                        String name1=name.replace(',','_');
+                                        String name2="test";
+
                                             String cis=medics.get(position).getCodeCIS().toString();
+                                        Toast.makeText(getApplicationContext(), "cis: "+cis, Toast.LENGTH_LONG).show();
                                         Log.i("nb_av",""+medicDAO.getAllMedics().size());
-                                            medicDAO.add(name,cis);
+                                            medicDAO.add(name2,cis);
                                         Log.i("nb_ap",""+medicDAO.getAllMedics().size());
                                         Intent n = new Intent(getApplicationContext(), MaPharma.class);
 

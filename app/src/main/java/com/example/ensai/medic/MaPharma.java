@@ -64,13 +64,10 @@ public class MaPharma extends Activity {
                         n.putExtra("position", position);
                         Log.i("Envoi",""+ mes_medic.getItemAtPosition(position).toString());
                         try {
-                            Log.i("Envoi",""+1);
                             Intent i = new Intent(getApplicationContext(), SelectedMedic.class);
-                            Log.i("Envoi",""+2);
                             i.putExtra("monmedic", mes_medic.getItemAtPosition(position).toString());
-                            Log.i("Envoi",""+3);
+
                             startActivity(i);
-                            Log.i("Envoi",""+4);
                         } catch(ActivityNotFoundException e) {
                             Log.i("erreur",""+e.getMessage());
                             (Toast.makeText(getApplicationContext(), "GoogleMap non trouvé", Toast.LENGTH_LONG)).show();

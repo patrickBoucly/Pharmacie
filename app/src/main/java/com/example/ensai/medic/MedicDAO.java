@@ -117,7 +117,11 @@ public class MedicDAO {
         }
         return results;
     }
-
-
+    public void deleteMedicName(String name) {
+        open();
+        database.delete("pharmacie", "nom" + "=" + name, null);
+        close();
+    }
 
 }
+
