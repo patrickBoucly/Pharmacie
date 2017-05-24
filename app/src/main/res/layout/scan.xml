@@ -28,5 +28,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/resultats_scan">
 
+
     </ListView>
+
+
 </RelativeLayout>

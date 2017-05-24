@@ -7,6 +7,7 @@ package com.example.ensai.medic;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.AssetManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -17,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,6 +43,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.facebook.stetho.inspector.network.PrettyPrinterDisplayType.JSON;
+import static com.google.android.gms.R.id.progressBar;
 
 public class Scan extends Activity implements  View.OnClickListener,AdapterView.OnItemClickListener {
     private String text;
@@ -48,6 +51,12 @@ public class Scan extends Activity implements  View.OnClickListener,AdapterView.
     private String cis;
     private ArrayList<Medic> medics= new ArrayList<Medic>();
     private ListView resultats_scan;
+
+
+
+
+
+
    // private MedicDAO medicDAO;
 
     @Override
@@ -55,33 +64,45 @@ public class Scan extends Activity implements  View.OnClickListener,AdapterView.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.scan);
         resultats_scan = (ListView) findViewById(R.id.resultats_scan);
+        Button mybutton = (Button) findViewById(R.id.scan_button);
+        mybutton.setOnClickListener(this);
 
         //
 
 
 
         //
-
-
 
         AssetManager mngr=this.getAssets();
 
         Log.i("ini" ,"en cours");
 
         CodeDAO dao=new CodeDAO(this);
+        Log.i("ini",""+ dao.getAll().size());
 
 
-        if(dao.getAll().size()==0) {
-            (Toast.makeText(getApplicationContext(), "Initialisation du scanner: veuillez patienter quelques minutes", Toast.LENGTH_LONG)).show();
+
+
+
+
+
+       if(dao.getAll().size()==0) {
+            (Toast.makeText(getApplicationContext(), "Initialisation du scanner: veuillez patienter", Toast.LENGTH_LONG)).show();
             try {
                 InputStream iS = mngr.open("CIS_CIP.txt");
                 BufferedReader reader = new BufferedReader(new InputStreamReader(iS));
                 List<String> lignes = readLines(reader);
+                ArrayList<Code> listeCode = new ArrayList<Code>();
                 for (String line : lignes) {
                         String cis=line.substring(0, 8);
                         String cip=line.substring(9);
-                        dao.add(new Code(cis,cip));
+                    Code code= new Code(cis, cip);
+                       // dao.add(new Code(cis,cip));
+                    listeCode.add(code);
+
                 }
+                dao.addAll(listeCode);
+                (Toast.makeText(getApplicationContext(), "scanner: initialisé", Toast.LENGTH_LONG)).show();
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -89,19 +110,19 @@ public class Scan extends Activity implements  View.OnClickListener,AdapterView.
                 e.printStackTrace();
             }
 
-            Button mybutton = (Button) findViewById(R.id.scan_button);
-            mybutton.setOnClickListener(this);
+
         }
     }
 
 
     @Override
     public void onClick(View v) {
-        if(v.getId() == R.id.scan_button){
+       // if(v.getId() == R.id.scan_button){
 
 // on lance le scanner au clic sur notre bouton
             new IntentIntegrator(this).initiateScan();
-        }
+        Log.i("scan", "'lancé");
+       // }
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
@@ -125,6 +146,7 @@ public class Scan extends Activity implements  View.OnClickListener,AdapterView.
             cis=dao.getCIS(scanContent);
             scan_format.setText("FORMAT: " + scanFormat);
             scan_content.setText("CIS: " + cis);
+
 
 
             //faire appel à okhttp pour recuperer le nom du medicament

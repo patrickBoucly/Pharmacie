@@ -42,6 +42,9 @@ public class CodeDAO {
     public void close() {
         dbHelper.close();
     }
+
+
+
     public void add(Code code){
 
         open();
@@ -53,8 +56,40 @@ public class CodeDAO {
         close(); // Closing database connection
     }
 
-    public String getCIS(String cip){
+
+
+   /* public void addAll(List<Code>  listeCode){
         open();
+        ContentValues values = new ContentValues();
+        for(int i = 1; i <= listeCode.size(); i++){
+           Code code=listeCode.get(i);
+            values.put("cis", code.getCis());
+            values.put("cip", code.getCip());
+            db.insert(TABLE_CODE, null, values);
+        }
+        close();
+    }*/
+
+
+    public void addAll(List<Code>  listeCode) {
+        String sql = "INSERT INTO "+ TABLE_CODE +" VALUES (?,?);";
+        SQLiteStatement statement = db.compileStatement(sql);
+        db.beginTransaction();
+        for (int i = 0; i<listeCode.size(); i++) {
+            Code code=listeCode.get(i);
+            statement.clearBindings();
+            statement.bindString(1, code.getCis());
+            statement.bindString(2, code.getCip());
+            statement.execute();
+        }
+        db.setTransactionSuccessful();
+        db.endTransaction();
+    }
+
+
+
+    public String getCIS(String cip){
+       // open();
         String res="";
         String req="SELECT cis from code where cip="+cip;
         Cursor cursor = db.rawQuery(req, null);
@@ -63,22 +98,22 @@ public class CodeDAO {
                 res=cursor.getString(0);
             } while (cursor.moveToNext());
         }
-        close();
+       // close();
         return res;
     }
     public List<Code> getAll(){
         List<Code> codeList = new ArrayList<Code>();
         open();
-        Cursor cursor = db.rawQuery(SEARCH_ALL_CODE, null);//ligne qui plante
+        Cursor cursor = db.rawQuery(SEARCH_ALL_CODE, null);
 // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
             do {
-                Code code = new Code(cursor.getString(1),cursor.getString(2));
+                Code code = new Code(cursor.getString(0),cursor.getString(1));
 
                 codeList.add(code);
             } while (cursor.moveToNext());
         }
-        close();
+       // close();
         return codeList;
     }
     public void initialize(AssetManager mngr){
