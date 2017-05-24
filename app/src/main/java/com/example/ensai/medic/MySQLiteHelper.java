@@ -29,7 +29,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
             MySQLiteHelper.COLUMN_CIP};
     public static final String TABLE_PHARMACIE ="pharmacie";
     public static final String SAVE_MEDIC = "INSERT INTO " + TABLE_PHARMACIE +" VALUES (NULL, ?, ?);";
-    public static final String COLUMN_Name = "Nom";
+    public static final String COLUMN_Name = "nom";
     private static final String DATABASE_NAME = "pharmacie";
     public static final String COLUMN_ID = "id";
     private static final int DATABASE_VERSION = 1;

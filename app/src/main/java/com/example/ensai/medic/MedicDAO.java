@@ -23,7 +23,7 @@ public class MedicDAO {
     private SQLiteDatabase database;
     private MySQLiteHelper dbHelper;
     private String[] allColumns = { MySQLiteHelper.COLUMN_ID,MySQLiteHelper.COLUMN_Name,MySQLiteHelper.COLUMN_CIS,
-            };
+    };
 
     public MedicDAO(Context context) {
         dbHelper = new MySQLiteHelper(context);
@@ -89,6 +89,7 @@ public class MedicDAO {
         return res;
     }
     public List<Medic> getAllMedics() {
+        open();
         List<Medic> medics = new ArrayList<Medic>();
 
         Cursor cursor = database.query(MySQLiteHelper.TABLE_PHARMACIE,
@@ -101,6 +102,7 @@ public class MedicDAO {
             cursor.moveToNext();
         }
         cursor.close();
+        close();
         return medics;
     }
     private Medic cursorToMedic(Cursor cursor) {
@@ -124,4 +126,3 @@ public class MedicDAO {
     }
 
 }
-

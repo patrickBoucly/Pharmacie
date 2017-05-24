@@ -13,7 +13,10 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +24,14 @@ import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.squareup.okhttp.Callback;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -29,16 +40,29 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Scan extends Activity implements View.OnClickListener {
+import static com.facebook.stetho.inspector.network.PrettyPrinterDisplayType.JSON;
 
+public class Scan extends Activity implements  View.OnClickListener,AdapterView.OnItemClickListener {
+    private String text;
+    private String denom;
+    private String cis;
+    private ArrayList<Medic> medics= new ArrayList<Medic>();
+    private ListView resultats_scan;
+   // private MedicDAO medicDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.scan);
+        resultats_scan = (ListView) findViewById(R.id.resultats_scan);
 
-        Button mybutton = (Button) findViewById(R.id.scan_button);
-        mybutton.setOnClickListener(this);
+        //
+
+
+
+        //
+
+
 
         AssetManager mngr=this.getAssets();
 
@@ -48,6 +72,7 @@ public class Scan extends Activity implements View.OnClickListener {
 
 
         if(dao.getAll().size()==0) {
+            (Toast.makeText(getApplicationContext(), "Initialisation du scanner: veuillez patienter quelques minutes", Toast.LENGTH_LONG)).show();
             try {
                 InputStream iS = mngr.open("CIS_CIP.txt");
                 BufferedReader reader = new BufferedReader(new InputStreamReader(iS));
@@ -63,6 +88,9 @@ public class Scan extends Activity implements View.OnClickListener {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
+            Button mybutton = (Button) findViewById(R.id.scan_button);
+            mybutton.setOnClickListener(this);
         }
     }
 
@@ -94,9 +122,67 @@ public class Scan extends Activity implements View.OnClickListener {
 // nous affichons le résultat dans nos TextView
             CodeDAO dao =new CodeDAO(this);
 
-            String cis=dao.getCIS(scanContent);
+            cis=dao.getCIS(scanContent);
             scan_format.setText("FORMAT: " + scanFormat);
             scan_content.setText("CIS: " + cis);
+
+
+            //faire appel à okhttp pour recuperer le nom du medicament
+
+            String adresse = "https://open-medicaments.fr/api/v1/medicaments/"+ cis;
+            OkHttpClient okhttpClient = new OkHttpClient();
+            Request myGetRequest = new Request.Builder()
+                    .url(adresse)
+                    .build();
+
+            okhttpClient.newCall(myGetRequest).enqueue(new Callback() {
+                @Override
+                public void onFailure(Request request, IOException e) {
+                }
+                @Override
+                public void onResponse(Response response) throws IOException {
+                    //le retour est effectué dans un thread différent
+                    try {
+                        text = response.body().string();
+                        Log.i("test text", text);
+                        JSONObject json = new JSONObject(text);
+                        denom = json.getString("denomination");
+                        Log.i("test denom", denom);
+                        medics.add(new Medic(1,denom,cis));
+
+                    } catch (JSONException exc) {
+
+                        exc.printStackTrace();
+                    }
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            ArrayList<String> medic= new ArrayList<String>();
+                            for(Medic med: medics){
+                                medic.add(med.getName());
+                            }
+                            final ArrayAdapter<String> adapter = new ArrayAdapter<String>(Scan.this,
+                                    android.R.layout.simple_list_item_1, medic);
+                            resultats_scan.setAdapter(adapter);
+
+                            resultats_scan.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+
+                                public void onItemClick(AdapterView<?> arg0,View arg1, int position, long id){
+                                    MedicDAO medicDAO= new MedicDAO(getApplicationContext());
+                                    medicDAO.add(denom,cis);
+                                    Intent n = new Intent(getApplicationContext(), MaPharma.class);
+                                    startActivity(n);
+                                }
+                            });
+                        }
+                    }); // fin runOnUiThread
+                } // fin onResponse
+            });
+
+
+
+
+
 
 
 
@@ -145,6 +231,8 @@ public class Scan extends Activity implements View.OnClickListener {
     }
 
 
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-
+    }
 }

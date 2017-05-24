@@ -69,7 +69,7 @@ public class CodeDAO {
     public List<Code> getAll(){
         List<Code> codeList = new ArrayList<Code>();
         open();
-        Cursor cursor = db.rawQuery(SEARCH_ALL_CODE, null);
+        Cursor cursor = db.rawQuery(SEARCH_ALL_CODE, null);//ligne qui plante
 // looping through all rows and adding to list
         if (cursor.moveToFirst()) {
             do {
