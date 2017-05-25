@@ -115,17 +115,7 @@ public class MesVaccinsDetail extends Activity {
 
 
 
-
-
-
-
-
     }
-
-
-
-
-
 
 
 

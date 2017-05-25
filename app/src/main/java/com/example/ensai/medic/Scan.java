@@ -45,13 +45,13 @@ import java.util.List;
 import static com.facebook.stetho.inspector.network.PrettyPrinterDisplayType.JSON;
 import static com.google.android.gms.R.id.progressBar;
 
-public class Scan extends Activity implements  View.OnClickListener,AdapterView.OnItemClickListener {
+public class Scan extends Activity implements  View.OnClickListener ,AdapterView.OnItemClickListener {
     private String text;
     private String denom;
     private String cis;
     private ArrayList<Medic> medics= new ArrayList<Medic>();
     private ListView resultats_scan;
-
+    private CodeDAO dao=new CodeDAO(this);
 
 
 
@@ -67,27 +67,16 @@ public class Scan extends Activity implements  View.OnClickListener,AdapterView.
         Button mybutton = (Button) findViewById(R.id.scan_button);
         mybutton.setOnClickListener(this);
 
-        //
+
+        AssetManager mngr = this.getAssets();
+
+        Log.i("ini", "en cours");
 
 
-
-        //
-
-        AssetManager mngr=this.getAssets();
-
-        Log.i("ini" ,"en cours");
-
-        CodeDAO dao=new CodeDAO(this);
-        Log.i("ini",""+ dao.getAll().size());
+        Log.i("ini", "" + dao.getAll().size());
 
 
-
-
-
-
-
-
-       if(dao.getAll().size()==0) {
+        if (dao.getAll().size() == 0) {
             (Toast.makeText(getApplicationContext(), "Initialisation du scanner: veuillez patienter", Toast.LENGTH_LONG)).show();
             try {
                 InputStream iS = mngr.open("CIS_CIP.txt");
@@ -95,10 +84,10 @@ public class Scan extends Activity implements  View.OnClickListener,AdapterView.
                 List<String> lignes = readLines(reader);
                 ArrayList<Code> listeCode = new ArrayList<Code>();
                 for (String line : lignes) {
-                        String cis=line.substring(0, 8);
-                        String cip=line.substring(9);
-                    Code code= new Code(cis, cip);
-                       // dao.add(new Code(cis,cip));
+                    String cis = line.substring(0, 8);
+                    String cip = line.substring(9);
+                    Code code = new Code(cis, cip);
+                    // dao.add(new Code(cis,cip));
                     listeCode.add(code);
 
                 }
@@ -110,26 +99,30 @@ public class Scan extends Activity implements  View.OnClickListener,AdapterView.
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }
 
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.scan_button) {
+
+            // on lance le scanner au clic sur notre bouton
+            new IntentIntegrator(this).initiateScan();
+            Log.i("scanner", "lancé");
+            (Toast.makeText(getApplicationContext(), "1.scanner: lancé", Toast.LENGTH_LONG)).show();
         }
     }
 
 
-    @Override
-    public void onClick(View v) {
-       // if(v.getId() == R.id.scan_button){
-
-// on lance le scanner au clic sur notre bouton
-            new IntentIntegrator(this).initiateScan();
-        Log.i("scan", "'lancé");
-       // }
-    }
 
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-
+        //super.onActivityResult(requestCode, resultCode, intent);
 // nous utilisons la classe IntentIntegrator et sa fonction parseActivityResult pour parser le résultat du scan
+        (Toast.makeText(getApplicationContext(), "2.scanner: on activity", Toast.LENGTH_LONG)).show();
         IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
+        (Toast.makeText(getApplicationContext(), "3.scanner: resultat reçu", Toast.LENGTH_LONG)).show();
         if (scanningResult != null) {
 
 // nous récupérons le contenu du code barre
@@ -159,7 +152,7 @@ public class Scan extends Activity implements  View.OnClickListener,AdapterView.
 
 
             // nous affichons le résultat dans nos TextView
-            CodeDAO dao =new CodeDAO(this);
+
 
             cis=dao.getCIS(scanContent);
             scan_format.setText("FORMAT: " + scanFormat);
