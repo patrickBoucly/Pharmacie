@@ -133,7 +133,7 @@ public class CodeDAO {
             e.printStackTrace();
         }
 //        Log.i("test" ,""+this.getAll().size());
-        Log.i("test get cis " ,""+this.getCIS("3400935510259"));
+       // Log.i("test get cis " ,""+this.getCIS("3400935510259"));
     }
     public static List<String> readLines(BufferedReader reader) throws Exception {
 

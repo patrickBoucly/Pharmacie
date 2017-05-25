@@ -18,7 +18,35 @@
         android:text="Ecran: Mes vaccins" />
 
 
+    <Button
+        android:text=" (+) Ajouter une personne"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ajouter_personne"
+        android:onClick="ajouter_personne"/>
 
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text=""
+        android:ems="10"
+        android:id="@+id/personne"
+        android:selectAllOnFocus="false" />
+
+    <Button
+        android:text="Valider l'ajout "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/valider_ajouter_personne"
+        android:onClick="valider_ajouter_personne"/>
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/resultats_personnes">
+
+    </ListView>
 
 
 </LinearLayout>

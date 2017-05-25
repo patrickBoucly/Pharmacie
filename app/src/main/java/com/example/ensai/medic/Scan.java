@@ -86,6 +86,7 @@ public class Scan extends Activity implements  View.OnClickListener,AdapterView.
 
 
 
+
        if(dao.getAll().size()==0) {
             (Toast.makeText(getApplicationContext(), "Initialisation du scanner: veuillez patienter", Toast.LENGTH_LONG)).show();
             try {
@@ -140,7 +141,24 @@ public class Scan extends Activity implements  View.OnClickListener,AdapterView.
             TextView scan_format = (TextView) findViewById(R.id.scan_format);
             TextView scan_content = (TextView) findViewById(R.id.scan_content);
 
-// nous affichons le résultat dans nos TextView
+
+
+
+           // String scanContent="01034009300001201715081010234X22";
+            // si QRcode, on extrait le code CIP contenu à l'intérieur:
+            if (scanContent.length()>13 ){
+                // on récupère aussi la date de peremption:
+                String peremption=scanContent.substring(18,24);
+                // puis le CIP:
+                scanContent=scanContent.substring(3,16);
+                Log.i("blabla", "peremption "+peremption+" cip: "+scanContent);
+            }
+
+
+
+
+
+            // nous affichons le résultat dans nos TextView
             CodeDAO dao =new CodeDAO(this);
 
             cis=dao.getCIS(scanContent);

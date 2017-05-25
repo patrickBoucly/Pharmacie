@@ -29,6 +29,7 @@
         <activity android:name=".AjouterMedic"></activity>
         <activity android:name=".MesVaccins"></activity>
         <activity android:name=".SelectedMedic"></activity>
+        <activity android:name=".MesVaccinsDetail"></activity>
 
 
         <activity

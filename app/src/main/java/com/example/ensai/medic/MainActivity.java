@@ -41,7 +41,9 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        // création des bdd:
         bdd=new MySQLiteHelper(this);
+        //visuels:
         buttonPharma = (Button) findViewById((R.id.menu_pharma));
         ajouter_medic = (Button) findViewById((R.id.ajouter_medic));
         vaccin = (Button) findViewById((R.id.vaccin));

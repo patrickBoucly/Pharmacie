@@ -21,12 +21,10 @@ import java.util.List;
 
 public class MySQLiteHelper extends SQLiteOpenHelper {
 
-    private String[] allColumnsMedic = { MySQLiteHelper.COLUMN_ID,MySQLiteHelper.COLUMN_Name,MySQLiteHelper.COLUMN_CIS,
-            };
+    private String[] allColumnsMedic = { MySQLiteHelper.COLUMN_ID,MySQLiteHelper.COLUMN_Name,MySQLiteHelper.COLUMN_CIS,    };
     public static final String SAVE_CODE = "INSERT INTO code VALUES (NULL, ?, ?);";
     public static final String SEARCH_ALL_CODE= "SELECT * from code;";
-    private String[] allColumns_code = {MySQLiteHelper.COLUMN_CIS,
-            MySQLiteHelper.COLUMN_CIP};
+    private String[] allColumns_code = {MySQLiteHelper.COLUMN_CIS,       MySQLiteHelper.COLUMN_CIP};
     public static final String TABLE_PHARMACIE ="pharmacie";
     public static final String SAVE_MEDIC = "INSERT INTO " + TABLE_PHARMACIE +" VALUES (NULL, ?, ?);";
     public static final String COLUMN_Name = "nom";
@@ -36,14 +34,24 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     public static final String COLUMN_CIS = "cis";
     public static final String TABLE_CODE ="code";
     public static final String COLUMN_CIP = "cip";
+    public static final String TABLE_VACCINATION="vaccination";
+    public static final String COLUMN_VACCIN = "vaccin";
+    public static final String TABLE_PERSONNES="personnes";
+    public static final String TABLE_VACCINS="vaccins";
+    public static final String COLUMN_Vaccin = "nom";
+    public static final String COLUMN_Date = "date";
+
       // Commande sql pour la création de la base de données
 
 
     private static final String DATABASE_CREATE_PHARMACIE = "create table pharmacie(id integer primary key autoincrement, nom text not null, cis text not null, FOREIGN KEY (cis) REFERENCES code(cis));";
 
 //    private static final String DATABASE_CREATE_CODE="create table code(id integer primary key autoincrement,cis text not null, cip text not null);";
-    private static final String DATABASE_CREATE_CODE="create table code(cis text not null, cip text not null);";
+    private static final String DATABASE_CREATE_CODE="create table code(cis text not null, cip text primary key not null);";
 
+    private static final String DATABASE_CREATE_PERSONNES="create table personnes(nom text primary key not null);";
+
+    private static final String DATABASE_CREATE_VACCINS="create table vaccins(id integer primary key autoincrement,nom text , vaccin text , date text);";
 
     public MySQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -55,6 +63,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         Log.v("INFO1","avt db");
         database.execSQL(DATABASE_CREATE_PHARMACIE);
         database.execSQL(DATABASE_CREATE_CODE);
+        database.execSQL(DATABASE_CREATE_PERSONNES);
+        database.execSQL(DATABASE_CREATE_VACCINS);
         Log.v("INFO1","creating db");
 
     }
@@ -67,6 +77,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
                         + newVersion + ", which will destroy all old data");
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_PHARMACIE);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_CODE);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_PERSONNES);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_VACCINS);
         onCreate(db);
     }
 
