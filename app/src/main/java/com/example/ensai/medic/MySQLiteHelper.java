@@ -34,11 +34,9 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     public static final String COLUMN_CIS = "cis";
     public static final String TABLE_CODE ="code";
     public static final String COLUMN_CIP = "cip";
-    public static final String TABLE_VACCINATION="vaccination";
-    public static final String COLUMN_VACCIN = "vaccin";
     public static final String TABLE_PERSONNES="personnes";
     public static final String TABLE_VACCINS="vaccins";
-    public static final String COLUMN_Vaccin = "nom";
+    public static final String COLUMN_VACCIN = "nom";
     public static final String COLUMN_Date = "date";
 
       // Commande sql pour la création de la base de données

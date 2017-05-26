@@ -33,6 +33,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -94,8 +95,6 @@ public class AjouterMedic extends Activity implements View.OnClickListener,Adapt
                                 JSONObject jsonobject = json.getJSONObject(i);
                                 denom = jsonobject.getString("denomination");
                                 String code = ""+jsonobject.getInt("codeCIS");
-                                /*Log.d("test1", denom);
-                                Log.d("test2", code);*/
                                 medics.add(new Medic(1,denom,code));
                             }
                         } catch (JSONException exc) {
@@ -109,6 +108,10 @@ public class AjouterMedic extends Activity implements View.OnClickListener,Adapt
                                 for(Medic med: medics){
                                     medic.add(med.getName());
                                 }
+                                //TODO pb avec le tri aplhabetique: affiche correct mais selection erronnée ...
+                                //tri alpabetique
+                                // Collections.sort(medic);
+
                                 final ArrayAdapter<String> adapter = new ArrayAdapter<String>(AjouterMedic.this,
                                         android.R.layout.simple_list_item_1, medic);
                                 resultats.setAdapter(adapter);

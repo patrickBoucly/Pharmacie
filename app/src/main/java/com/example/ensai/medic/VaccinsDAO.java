@@ -16,7 +16,7 @@ public class VaccinsDAO {
 
     private SQLiteDatabase database;
     private MySQLiteHelper dbHelper;
-    private String[] allColumns = { MySQLiteHelper.COLUMN_ID, MySQLiteHelper.COLUMN_Name , MySQLiteHelper.COLUMN_Vaccin, MySQLiteHelper.COLUMN_Date   };
+    private String[] allColumns = { MySQLiteHelper.COLUMN_ID, MySQLiteHelper.COLUMN_Name , MySQLiteHelper.COLUMN_VACCIN, MySQLiteHelper.COLUMN_Date   };
 
     public VaccinsDAO(Context context) {
         dbHelper = new MySQLiteHelper(context);
@@ -35,9 +35,6 @@ public class VaccinsDAO {
         database.execSQL("INSERT INTO vaccins(nom,vaccin,date) VALUES('"+name+"','"+vaccin+"','"+date+"');");
         close();
     }
-
-
-
 
 
 
@@ -75,8 +72,12 @@ public class VaccinsDAO {
         return vaccin_date;
     }
 
+    public void deleteVaccin(String vaccin, String nom) {
+        open();
+        database.delete(MySQLiteHelper.TABLE_VACCINS,"vaccin=? and nom=?",new String[]{vaccin,nom});
+        close();
 
-
+    }
 
 
 

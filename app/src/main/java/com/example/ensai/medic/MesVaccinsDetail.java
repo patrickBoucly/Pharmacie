@@ -31,13 +31,16 @@ import static com.example.ensai.medic.R.id.spinner;
 public class MesVaccinsDetail extends Activity {
     private Button bouton2 = null;
     private  Button bouton_valider = null;
+    private  Button bouton_valider2 = null;
     private EditText editText=null;
     private ListView resultats_vaccins;
     private VaccinsDAO vaccinsDAO;
     private String nom="";
     private  TextView test =null ;
     private Spinner spinner=null;
+    private Spinner spinner2=null;
     private String vaccinAjoute=null;
+    private String vaccinASupprimer=null;
     private DatePicker datePicker=null;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,10 +52,11 @@ public class MesVaccinsDetail extends Activity {
         TextView textView = (TextView) findViewById(R.id.ecran_detail);
         textView.setText(nom);
 
-        editText = (EditText) findViewById(R.id.vaccin);
-        editText.setVisibility(View.INVISIBLE);
+
         bouton_valider= (Button) findViewById(R.id.valider_ajouter_vaccin);
         bouton_valider.setVisibility(View.INVISIBLE);
+        bouton_valider2= (Button) findViewById(R.id.valider_suppression_vaccin);
+        bouton_valider2.setVisibility(View.INVISIBLE);
 
         bouton2 = (Button) findViewById(R.id.ajouter_personne);
         resultats_vaccins = (ListView) findViewById(R.id.resultats_vaccins);
@@ -75,6 +79,9 @@ public class MesVaccinsDetail extends Activity {
         // Spinner element
         spinner = (Spinner) findViewById(R.id.spinner);
         spinner.setVisibility(View.INVISIBLE);
+
+        spinner2 = (Spinner) findViewById(R.id.spinner2);
+        spinner2.setVisibility(View.INVISIBLE);
 
 
 
@@ -130,9 +137,7 @@ public class MesVaccinsDetail extends Activity {
     }
 
     public void  valider_ajouter_vaccin(View v) {
-       // String vaccin = editText.getText().toString();
         String vaccin=vaccinAjoute;
-        Log.i("verif", vaccin);
 
         // get the values for day of month , month and year from a date picker
         String day =  ""+datePicker.getDayOfMonth();
@@ -148,7 +153,54 @@ public class MesVaccinsDetail extends Activity {
         Intent intent = new Intent(this, MesVaccins.class);
         startActivity(intent);
 
+    }
+
+
+public void supprimerVaccin(View v){
+
+    spinner2.setVisibility(View.VISIBLE);
+    bouton_valider2.setVisibility(View.VISIBLE);
+    List<String> listeVaccins = new ArrayList<String>();
+    listeVaccins=vaccinsDAO.getFromName( nom);
+
+    // Creating adapter for spinner
+    ArrayAdapter<String> dataAdapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listeVaccins);
+
+    // Drop down layout style - list view with radio button
+    dataAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+    // attaching data adapter to spinner
+    spinner2.setAdapter(dataAdapter2);
+
+    spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+            Object item = parent.getItemAtPosition(pos);
+            String vaccinAvecDateASupprimer= item.toString();
+            //extraire uniquement le nom du vaccin daté
+            int longueurChaine=vaccinAvecDateASupprimer.length();
+            vaccinASupprimer=vaccinAvecDateASupprimer.substring(0, longueurChaine-12);
+            Log.i("maths",vaccinASupprimer );
+
+        }
+        public void onNothingSelected(AdapterView<?> parent) {
+        }
+    });
+
+}
+
+
+    public void  validerSuppressionVaccin(View v) {
+
+        // supprimer le vaccin dans la base
+        vaccinsDAO.open();
+        vaccinsDAO.deleteVaccin(vaccinASupprimer,nom);
+        vaccinsDAO.close();
+        Toast.makeText(this, "Supprimons le vaccin "+vaccinASupprimer + " pour: "+nom , Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(this, MesVaccins.class);
+        startActivity(intent);
 
     }
+
+
 
 }

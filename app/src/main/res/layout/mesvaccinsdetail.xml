@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ecran_ma_pharma"
@@ -9,7 +16,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    tools:context="com.example.ensai.medic.MainActivity">
+    tools:context="com.example.ensai.medic.MainActivity"
+    android:weightSum="1">
 
     <TextView
         android:layout_width="wrap_content"
@@ -20,8 +28,9 @@
 
     <ListView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/resultats_vaccins">
+        android:id="@+id/resultats_vaccins"
+        android:layout_weight="1.94"
+        android:layout_height="300dp">
     </ListView>
 
     <Button
@@ -30,14 +39,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/ajouter_vaccin"
         android:onClick="ajouter_vaccin"/>
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:text=""
-        android:ems="10"
-        android:id="@+id/vaccin" />
 
     <Spinner
         android:layout_width="match_parent"
@@ -56,5 +57,26 @@
         android:id="@+id/valider_ajouter_vaccin"
         android:onClick="valider_ajouter_vaccin"/>
 
+    <Button
+        android:text=" (-) Supprimer un vaccin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/supprimer_vaccin"
+        android:onClick="supprimerVaccin"/>
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner2" />
+
+    <Button
+        android:text="Valider la suppression "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/valider_suppression_vaccin"
+        android:onClick="validerSuppressionVaccin"/>
+
 
 </LinearLayout>
+
+</ScrollView>
