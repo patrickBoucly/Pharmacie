@@ -1,67 +1,122 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_main"
+    android:background="#ffffff"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:orientation="vertical"
-    tools:context="com.example.ensai.medic.MainActivity">
+    android:orientation="vertical" >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tv"
-        android:text="zone logo Ma pharmacie"
-        />
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:background="#66ba59"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
 
-    <Button
-        android:id="@+id/menu_pharma"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Ma pharmacie"
-        android:drawableLeft="@drawable/pharma"
-        android:onClick="vers_pharma"
-        />
-    <Button
-        android:id="@+id/ajouter_medic"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Ajouter un médicament"
-        android:drawableLeft="@drawable/new_medic"
-        android:onClick="vers_ajouter_medic"
-        />
-    <Button
-        android:id="@+id/vaccin"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Mes vaccins"
-        android:drawableLeft="@drawable/vaccins"
-        android:onClick="vers_vaccin"
-        />
-    <Button
-        android:id="@+id/geoloc"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Pharmacie à proximité"
-        android:drawableLeft="@drawable/geoloc"
-        android:onClick="vers_geoloc"
-        />
-    <Button
-        android:id="@+id/scan"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Scanner"
-        android:drawableLeft="@drawable/qrcode"
-        android:onClick="vers_scan"
-        />
-    <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/maVue"/>
 
+        <View
+            android:layout_width="fill_parent"
+            android:background="#ffffff"
+            android:layout_height="50px" />
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#fdfdfd"
+        android:orientation="vertical" >
+
+        <View
+            android:layout_width="fill_parent"
+            android:background="#ffffff"
+            android:layout_height="80px" />
+
+        <Button
+            android:id="@+id/menu_pharma"
+            android:background="@drawable/button_selector"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Ma pharmacie"
+            android:drawableLeft="@drawable/pharma"
+            android:onClick="vers_pharma"
+            android:textSize="55px"
+            />
+
+        <View
+            android:layout_width="fill_parent"
+            android:background="#ffffff"
+            android:layout_height="30px" />
+
+        <Button
+            android:id="@+id/ajouter_medic"
+            android:background="@drawable/button_selector"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Ajouter un médicament"
+            android:drawableLeft="@drawable/new_medic"
+            android:onClick="vers_ajouter_medic"
+            android:textSize="55px"
+            />
+
+        <View
+            android:layout_width="fill_parent"
+            android:background="#fcfcfc"
+            android:layout_height="30px" />
+
+        <Button
+            android:id="@+id/vaccin"
+            android:background="@drawable/button_selector"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Mes vaccins"
+            android:drawableLeft="@drawable/vaccins"
+            android:onClick="vers_vaccin"
+            android:textSize="55px"
+            />
+
+        <View
+            android:layout_width="fill_parent"
+            android:background="#ffffff"
+            android:layout_height="30px" />
+
+        <Button
+            android:id="@+id/geoloc"
+            android:background="@drawable/button_selector"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Pharmacie à proximité"
+            android:drawableLeft="@drawable/geoloc"
+            android:onClick="vers_geoloc"
+            android:textSize="55px"
+            />
+
+        <View
+            android:layout_width="fill_parent"
+            android:background="#ffffff"
+            android:layout_height="30px" />
+
+        <Button
+            android:id="@+id/scan"
+
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Scanner"
+            android:drawableLeft="@drawable/qrcode"
+            android:onClick="vers_scan"
+            android:background="@drawable/button_selector"
+            android:textSize="55px"
+
+
+            />
+
+    </LinearLayout>
 
 </LinearLayout>
+
+
+</ScrollView>

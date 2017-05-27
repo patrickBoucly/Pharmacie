@@ -150,7 +150,8 @@ public class MesVaccinsDetail extends Activity {
         vaccinsDAO.add(nom, vaccin, date);
         vaccinsDAO.close();
         Toast.makeText(this, "Ajoutons le vaccin "+vaccin + " pour: "+nom + " à la date du " +date, Toast.LENGTH_LONG).show();
-        Intent intent = new Intent(this, MesVaccins.class);
+        Intent intent = new Intent(this, MesVaccinsDetail.class);
+        intent.putExtra("nom", nom);
         startActivity(intent);
 
     }
@@ -196,7 +197,8 @@ public void supprimerVaccin(View v){
         vaccinsDAO.deleteVaccin(vaccinASupprimer,nom);
         vaccinsDAO.close();
         Toast.makeText(this, "Supprimons le vaccin "+vaccinASupprimer + " pour: "+nom , Toast.LENGTH_LONG).show();
-        Intent intent = new Intent(this, MesVaccins.class);
+        Intent intent = new Intent(this, MesVaccinsDetail.class);
+        intent.putExtra("nom", nom);
         startActivity(intent);
 
     }

@@ -21,26 +21,17 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            </intent-filter></activity>
         <activity android:name=".MaPharma"></activity>
+
         <activity android:name=".AjouterMedic"></activity>
         <activity android:name=".MesVaccins"></activity>
         <activity android:name=".SelectedMedic"></activity>
         <activity android:name=".MesVaccinsDetail"></activity>
 
 
-        <activity
-            android:name=".Geoloc"
-            android:label="@string/app_name" >
-
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".Geoloc"> </activity>
 
         <activity android:name=".Scan"></activity>
 

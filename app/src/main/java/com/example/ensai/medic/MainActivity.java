@@ -48,7 +48,7 @@ public class MainActivity extends Activity {
         ajouter_medic = (Button) findViewById((R.id.ajouter_medic));
         vaccin = (Button) findViewById((R.id.vaccin));
         geoloc = (Button) findViewById((R.id.geoloc));
-        textView = (TextView) findViewById(R.id.tv);
+       // textView = (TextView) findViewById(R.id.tv);
         scan= (Button) findViewById(R.id.scan);
 
 
@@ -77,6 +77,11 @@ public class MainActivity extends Activity {
     public void vers_scan(View v) {
         Toast.makeText(this, "Bienvenue sur l'écran Scan", Toast.LENGTH_LONG).show();
         Intent intent = new Intent(this, Scan.class);
+        startActivity(intent);
+    }
+    public void vers_accueil (View v) {
+        Toast.makeText(this, "Retour à l'écran d'accueil", Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 

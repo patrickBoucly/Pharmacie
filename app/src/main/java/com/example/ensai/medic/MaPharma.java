@@ -40,7 +40,6 @@ public class MaPharma extends Activity {
         mes_medic = (ListView) findViewById(R.id.mes_medic);
         medicDAO= new MedicDAO(this);
         medicDAO.open();
-        //medicDAO.createMedic("bière","blonde");
 
         List<Medic> values = medicDAO.getAllMedics();
         List<String> noms=new ArrayList<String>();
@@ -91,7 +90,11 @@ public class MaPharma extends Activity {
 
     }
 
-
+    public void vers_accueil (View v) {
+        Toast.makeText(this, "Retour à l'écran d'accueil", Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
 
 
 
