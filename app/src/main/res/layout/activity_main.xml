@@ -4,21 +4,21 @@
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="#ffffff"
+    android:background="#e4f4e9"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
     <LinearLayout
         android:id="@+id/linearLayout1"
-        android:background="#66ba59"
+        android:background="#e4f4e9"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
 
         <View
             android:layout_width="fill_parent"
-            android:background="#ffffff"
+            android:background="#e4f4e9"
             android:layout_height="50px" />
 
 
@@ -28,12 +28,12 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#fdfdfd"
+        android:background="#e4f4e9"
         android:orientation="vertical" >
 
         <View
             android:layout_width="fill_parent"
-            android:background="#ffffff"
+            android:background="#e4f4e9"
             android:layout_height="80px" />
 
         <Button
@@ -44,12 +44,12 @@
             android:text="Ma pharmacie"
             android:drawableLeft="@drawable/pharma"
             android:onClick="vers_pharma"
-            android:textSize="55px"
+            android:textSize="40px"
             />
 
         <View
             android:layout_width="fill_parent"
-            android:background="#ffffff"
+            android:background="#e4f4e9"
             android:layout_height="30px" />
 
         <Button
@@ -60,12 +60,12 @@
             android:text="Ajouter un médicament"
             android:drawableLeft="@drawable/new_medic"
             android:onClick="vers_ajouter_medic"
-            android:textSize="55px"
+            android:textSize="40px"
             />
 
         <View
             android:layout_width="fill_parent"
-            android:background="#fcfcfc"
+            android:background="#e4f4e9"
             android:layout_height="30px" />
 
         <Button
@@ -76,12 +76,12 @@
             android:text="Mes vaccins"
             android:drawableLeft="@drawable/vaccins"
             android:onClick="vers_vaccin"
-            android:textSize="55px"
+            android:textSize="40px"
             />
 
         <View
             android:layout_width="fill_parent"
-            android:background="#ffffff"
+            android:background="#e4f4e9"
             android:layout_height="30px" />
 
         <Button
@@ -92,12 +92,12 @@
             android:text="Pharmacie à proximité"
             android:drawableLeft="@drawable/geoloc"
             android:onClick="vers_geoloc"
-            android:textSize="55px"
+            android:textSize="40px"
             />
 
         <View
             android:layout_width="fill_parent"
-            android:background="#ffffff"
+            android:background="#e4f4e9"
             android:layout_height="30px" />
 
         <Button
@@ -109,7 +109,7 @@
             android:drawableLeft="@drawable/qrcode"
             android:onClick="vers_scan"
             android:background="@drawable/button_selector"
-            android:textSize="55px"
+            android:textSize="40px"
 
 
             />

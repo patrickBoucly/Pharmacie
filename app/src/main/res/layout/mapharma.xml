@@ -11,13 +11,37 @@
     android:orientation="vertical"
     tools:context="com.example.ensai.medic.MainActivity">
 
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:background="#66ba59"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    <Button
+        android:text="Accueil"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_selector"
+        android:onClick="vers_accueil"
+        android:id="@+id/button4" />
+
+        <TextView
+            android:text="Ma Pharmacie"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:background="#66ba59"
+            android:textSize="20dp"
+            android:id="@+id/textView2" />
+
+    </LinearLayout>
 
 
 
-        <View
+    <View
             android:layout_width="fill_parent"
-            android:background="#ffffff"
-            android:layout_height="30px" />
+            android:background="#e4f4e9"
+            android:layout_height="30dp" />
 
 
         <ListView
