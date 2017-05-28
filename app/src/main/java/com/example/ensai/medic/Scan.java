@@ -135,9 +135,17 @@ public class Scan extends Activity implements  View.OnClickListener ,AdapterView
             // si QRcode, on extrait le code CIP contenu à l'intérieur:
             if (scanContent.length()>13 ){
                 // on récupère aussi la date de peremption:
-                String peremption=scanContent.substring(18,24);
+                String peremption=scanContent.substring(17,23);
                 // puis le CIP:
-                scanContent=scanContent.substring(3,16);
+                scanContent=scanContent.substring(4,17);
+                Toast toasta=Toast.makeText(this,peremption, Toast.LENGTH_LONG);
+                Toast toastb=Toast.makeText(this, scanContent, Toast.LENGTH_LONG);
+                TextView va = (TextView) toasta.getView().findViewById(android.R.id.message);
+                va.setTextColor(Color.BLACK);
+                toasta.show();
+                TextView vb = (TextView) toasta.getView().findViewById(android.R.id.message);
+                vb.setTextColor(Color.BLACK);
+                toastb.show();
                 Log.i("blabla", "peremption "+peremption+" cip: "+scanContent);
             }
 

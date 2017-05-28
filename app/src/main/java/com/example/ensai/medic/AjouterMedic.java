@@ -93,7 +93,7 @@ public class AjouterMedic extends Activity implements View.OnClickListener,Adapt
                                 for(Medic med: medics){
                                     medic.add(med.getName());
                                 }
-                                //TODO pb avec le tri aplhabetique: affiche correct mais selection erronnée ...
+                                //TODO pb avec le tri aplhabetique: affichage correct mais selection erronnée ...
                                 //tri alpabetique
                                 // Collections.sort(medic);
 
@@ -108,7 +108,7 @@ public class AjouterMedic extends Activity implements View.OnClickListener,Adapt
                                             String name=medics.get(position).getName();
                                             Log.i("ici, name : ",name);
                                             String cis=medics.get(position).getCodeCIS().toString();
-                                        Log.i("ici, cis : ",cis);
+                                             Log.i("ici, cis : ",cis);
                                             Toast.makeText(getApplicationContext(), "cis: "+cis, Toast.LENGTH_LONG).show();
                                             medicDAO.add(name,cis);
                                             Intent n = new Intent(getApplicationContext(), MaPharma.class);
