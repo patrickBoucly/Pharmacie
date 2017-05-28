@@ -3,7 +3,7 @@ package com.example.ensai.medic;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
-import android.net.Uri;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import android.util.Log;
@@ -14,14 +14,13 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.List;
-import java.util.Random;
 
-import android.app.ListActivity;
-import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.ensai.medic.DAO.MedicDAO;
+import com.example.ensai.medic.outils.MonAdapter;
 
 
 /**
@@ -69,7 +68,11 @@ public class MaPharma extends Activity {
                             startActivity(i);
                         } catch(ActivityNotFoundException e) {
                             Log.i("erreur",""+e.getMessage());
-                            (Toast.makeText(getApplicationContext(), "GoogleMap non trouvé", Toast.LENGTH_LONG)).show();
+                            Toast toast=Toast.makeText(getApplicationContext(), "GoogleMap non trouvé", Toast.LENGTH_LONG);
+                            TextView v1 = (TextView) toast.getView().findViewById(android.R.id.message);
+                            v1.setTextColor(Color.BLACK);
+                            toast.show();
+
                         }
                         //test
                         // startActivity(n);
@@ -91,7 +94,11 @@ public class MaPharma extends Activity {
     }
 
     public void vers_accueil (View v) {
-        Toast.makeText(this, "Retour à l'écran d'accueil", Toast.LENGTH_LONG).show();
+        Toast toast=Toast.makeText(this, "Retour à l'écran d'accueil", Toast.LENGTH_LONG);
+        TextView v2 = (TextView) toast.getView().findViewById(android.R.id.message);
+        v2.setTextColor(Color.BLACK);
+        toast.show();
+
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }

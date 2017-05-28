@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -171,7 +172,7 @@ public class Geoloc extends Activity {
 
                             OkHttpClient okhttpClient = new OkHttpClient();
                             Request myGetRequest = new Request.Builder()
-                                    .url("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="+latitude+","+longitude+"&radius=2000&types=pharmacy&key=AIzaSyD1syvaUahKlwgsvgHZhzHtFwcHHAblNHQ")
+                                    .url("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="+latitude+","+longitude+"&radius=1500&types=pharmacy&key=AIzaSyD1syvaUahKlwgsvgHZhzHtFwcHHAblNHQ")
                                     .build();
 
 
@@ -239,7 +240,11 @@ public class Geoloc extends Activity {
 
 
                                                     } catch(ActivityNotFoundException e) {
-                                                        (Toast.makeText(getApplicationContext(), "GoogleMap non trouvé", Toast.LENGTH_LONG)).show();
+                                                        Toast toast= Toast.makeText(getApplicationContext(), "GoogleMap non trouvé", Toast.LENGTH_LONG);
+                                                        TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
+                                                        v.setTextColor(Color.RED);
+                                                        toast.show();
+
                                                     }
                                                     //test
                                                    // startActivity(n);
@@ -281,6 +286,15 @@ public class Geoloc extends Activity {
         }
     }
 
+    public void vers_accueil (View v) {
+        Toast toast= Toast.makeText(this, "Retour à l'écran d'accueil", Toast.LENGTH_LONG);
+        TextView v2 = (TextView) toast.getView().findViewById(android.R.id.message);
+        v2.setTextColor(Color.BLACK);
+        toast.show();
+
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
 
 
 

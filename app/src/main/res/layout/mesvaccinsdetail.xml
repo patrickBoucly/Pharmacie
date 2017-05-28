@@ -12,18 +12,62 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
     tools:context="com.example.ensai.medic.MainActivity"
     android:weightSum="1">
 
+
+
+    <!-- Le linear layout suivant affiche la barre de menu en haut de l'écran-->
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:background="#66ba59"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+        <Button
+            android:text=" &lt; Accueil "
+            android:layout_width="wrap_content"
+            android:background="#66ba59"
+            android:layout_height="wrap_content"
+            android:onClick="vers_accueil"
+            android:textColor="#ffffff"
+            android:textSize="18dp"
+            android:id="@+id/button4" />
+
+
+
+        <TextView
+            android:text="           Mes vaccins "
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:background="#66ba59"
+            android:textColor="#ffffff"
+            android:textSize="20dp"
+            android:id="@+id/textView2" />
+
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="fill_parent"
+        android:background="#e4f4e9"
+        android:layout_height="30dp" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/ecran_detail"
-        android:text="Ecran: Mes Vaccins: Detail" />
+        android:layout_gravity="center"
+        android:textSize="18dp"
+        android:text="nom" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:background="#e4f4e9"
+        android:layout_height="20dp" />
 
 
     <ListView
@@ -46,9 +90,11 @@
         android:id="@+id/spinner" />
 
     <DatePicker
+        android:id="@+id/datePicker"
         android:layout_width="wrap_content"
+        android:calendarViewShown="false"
         android:layout_height="100dp"
-        android:id="@+id/datePicker" />
+        android:calendarTextColor="@color/black" />
 
     <Button
         android:text="Valider l'ajout "

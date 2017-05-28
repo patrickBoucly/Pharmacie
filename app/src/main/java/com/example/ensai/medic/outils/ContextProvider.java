@@ -1,4 +1,4 @@
-package com.example.ensai.medic;
+package com.example.ensai.medic.outils;
 
 /**
  * Created by ensai on 18/05/17.

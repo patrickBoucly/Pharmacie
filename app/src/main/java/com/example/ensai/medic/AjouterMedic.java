@@ -1,11 +1,7 @@
 package com.example.ensai.medic;
 
 import android.app.Activity;
-import android.app.Application;
-import android.content.ActivityNotFoundException;
-import android.content.ContentProvider;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,11 +13,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 
-import com.google.android.gms.appindexing.Action;
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.appindexing.Thing;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.squareup.okhttp.Call;
+import com.example.ensai.medic.DAO.MedicDAO;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
@@ -33,14 +25,8 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Toast;
-
-import static com.example.ensai.medic.ContextProvider.sContext;
-import static com.example.ensai.medic.R.id.tv2;
 
 /**
  * Created by ensai on 11/05/17.
@@ -59,7 +45,6 @@ public class AjouterMedic extends Activity implements View.OnClickListener,Adapt
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ajoutermedic);
-        tv2 = (TextView) findViewById(R.id.tv2);
         tv3=(EditText) findViewById(R.id.tv3);
         bouton_ajouter = (Button) findViewById(R.id.bouton_ajouter);
         bouton_rechercher = (Button) findViewById(R.id.bouton_rechercher);
@@ -142,4 +127,12 @@ public class AjouterMedic extends Activity implements View.OnClickListener,Adapt
     public void onItemClick(AdapterView<?> l, View v, int position, long id) {
 
     }
+
+
+    public void vers_accueil (View v) {
+        Toast.makeText(this, "Retour à l'écran d'accueil", Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
 }

@@ -1,13 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
+
+
+
+    <!-- Le linear layout suivant affiche la barre de menu en haut de l'écran-->
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:background="#66ba59"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+        <Button
+            android:text=" &lt; Accueil "
+            android:layout_width="wrap_content"
+            android:background="#66ba59"
+            android:layout_height="wrap_content"
+            android:onClick="vers_accueil"
+            android:textColor="#ffffff"
+            android:textSize="18dp"
+            android:id="@+id/button4" />
+
+
+
+        <TextView
+            android:text="           Scanner médicament "
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:background="#66ba59"
+            android:textColor="#ffffff"
+            android:textSize="20dp"
+            android:id="@+id/textView2" />
+
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="fill_parent"
+        android:background="#e4f4e9"
+        android:layout_height="30dp" />
 
     <Button android:id="@+id/scan_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:text="Scan"
         android:onClick="lancer_scanner"/>
 
@@ -16,14 +61,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textIsSelectable="true"
-        android:layout_centerHorizontal="true"
         android:layout_below="@id/scan_button" />
     <TextView
         android:id="@+id/scan_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textIsSelectable="true"
-        android:layout_centerHorizontal="true"
         android:layout_below="@id/scan_format" />
     <ListView
         android:layout_width="wrap_content"
@@ -34,4 +77,6 @@
     </ListView>
 
 
-</RelativeLayout>
+</LinearLayout>
+
+</ScrollView>

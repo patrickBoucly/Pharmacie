@@ -1,4 +1,4 @@
-package com.example.ensai.medic;
+package com.example.ensai.medic.outils;
 
 /**
  * Created by ensai on 19/05/17.
@@ -11,14 +11,12 @@ package com.example.ensai.medic;
         import android.view.View;
         import android.view.ViewGroup;
         import android.widget.BaseAdapter;
-        import android.widget.LinearLayout;
         import android.widget.ListView;
-        import android.widget.TextView;
 
-        import com.example.ensai.medic.ContextProvider;
+        import com.example.ensai.medic.Medic;
+        import com.example.ensai.medic.R;
+        import com.example.ensai.medic.outils.ContextProvider;
         import java.util.List;
-        import java.util.zip.Inflater;
-
 
 
 public class MonAdapter extends BaseAdapter {

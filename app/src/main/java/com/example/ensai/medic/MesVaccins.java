@@ -1,7 +1,6 @@
 package com.example.ensai.medic;
 
 import android.app.Activity;
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.example.ensai.medic.DAO.PersonnesDAO;
 
 import java.util.List;
 
@@ -86,5 +87,10 @@ public class MesVaccins extends Activity {
 
     }
 
+    public void vers_accueil (View v) {
+        Toast.makeText(this, "Retour à l'écran d'accueil", Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
 
 }

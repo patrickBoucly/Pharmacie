@@ -1,8 +1,8 @@
 package com.example.ensai.medic;
 
 import android.app.Activity;
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,13 +16,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
+import com.example.ensai.medic.DAO.VaccinsDAO;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.example.ensai.medic.R.id.date;
-import static com.example.ensai.medic.R.id.spinner;
 
 /**
  * Created by ensai on 25/05/17.
@@ -132,7 +129,11 @@ public class MesVaccinsDetail extends Activity {
         bouton_valider.setVisibility(View.VISIBLE);
         spinner.setVisibility(View.VISIBLE);
         datePicker.setVisibility(View.VISIBLE);
-        Toast.makeText(this, "Entrez le nom du vaccin à ajouter", Toast.LENGTH_LONG).show();
+
+        Toast toast=Toast.makeText(this, "Entrez le nom du vaccin à ajouter:", Toast.LENGTH_LONG);
+        TextView v2 = (TextView) toast.getView().findViewById(android.R.id.message);
+        v2.setTextColor(Color.BLACK);
+        toast.show();
 
     }
 
@@ -149,7 +150,12 @@ public class MesVaccinsDetail extends Activity {
         vaccinsDAO.open();
         vaccinsDAO.add(nom, vaccin, date);
         vaccinsDAO.close();
-        Toast.makeText(this, "Ajoutons le vaccin "+vaccin + " pour: "+nom + " à la date du " +date, Toast.LENGTH_LONG).show();
+
+        Toast toast2=Toast.makeText(this, "Ajoutons le vaccin "+vaccin + " pour: "+nom + " à la date du " +date, Toast.LENGTH_LONG);
+        TextView v2 = (TextView) toast2.getView().findViewById(android.R.id.message);
+        v2.setTextColor(Color.BLACK);
+        toast2.show();
+
         Intent intent = new Intent(this, MesVaccinsDetail.class);
         intent.putExtra("nom", nom);
         startActivity(intent);
@@ -196,12 +202,27 @@ public void supprimerVaccin(View v){
         vaccinsDAO.open();
         vaccinsDAO.deleteVaccin(vaccinASupprimer,nom);
         vaccinsDAO.close();
-        Toast.makeText(this, "Supprimons le vaccin "+vaccinASupprimer + " pour: "+nom , Toast.LENGTH_LONG).show();
+
+        Toast toast3=Toast.makeText(this, "Supprimons le vaccin "+vaccinASupprimer + " pour: "+nom , Toast.LENGTH_LONG);
+        TextView v3 = (TextView) toast3.getView().findViewById(android.R.id.message);
+        v3.setTextColor(Color.BLACK);
+        toast3.show();
+
         Intent intent = new Intent(this, MesVaccinsDetail.class);
         intent.putExtra("nom", nom);
         startActivity(intent);
 
     }
+
+    public void vers_accueil (View v) {
+        Toast toast=Toast.makeText(this, "Retour à l'écran d'accueil", Toast.LENGTH_LONG);
+        TextView v5 = (TextView) toast.getView().findViewById(android.R.id.message);
+        v5.setTextColor(Color.BLACK);
+        toast.show();
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
 
 
 

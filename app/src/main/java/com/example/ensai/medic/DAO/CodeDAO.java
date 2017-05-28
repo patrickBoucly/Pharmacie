@@ -1,4 +1,4 @@
-package com.example.ensai.medic;
+package com.example.ensai.medic.DAO;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -7,9 +7,9 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
-import android.util.Log;
-import android.content.res.AssetManager;
-import android.content.res.Resources;
+
+import com.example.ensai.medic.Code;
+import com.example.ensai.medic.outils.MySQLiteHelper;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,9 +18,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.ensai.medic.ContextProvider.sContext;
-import static com.example.ensai.medic.MedicDAO.readLines;
-import static com.example.ensai.medic.MySQLiteHelper.TABLE_CODE;
+import static com.example.ensai.medic.outils.MySQLiteHelper.TABLE_CODE;
 
 /**
  * Created by ensai on 22/05/17.

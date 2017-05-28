@@ -1,4 +1,4 @@
-package com.example.ensai.medic;
+package com.example.ensai.medic.outils;
 
 import android.app.Application;
 //import android.support.multidex.MultiDex;

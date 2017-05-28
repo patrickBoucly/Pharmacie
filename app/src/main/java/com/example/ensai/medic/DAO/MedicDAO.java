@@ -1,22 +1,20 @@
-package com.example.ensai.medic;
+package com.example.ensai.medic.DAO;
 
 /**
  * Created by ensai on 19/05/17.
  */
 
 import java.io.BufferedReader;
-import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteStatement;
-import android.util.Log;
 
+import com.example.ensai.medic.Medic;
+import com.example.ensai.medic.outils.MySQLiteHelper;
 
 
 public class MedicDAO {

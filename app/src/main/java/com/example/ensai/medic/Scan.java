@@ -7,9 +7,8 @@ package com.example.ensai.medic;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.AssetManager;
-import android.os.AsyncTask;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,12 +17,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 // on importe les classes IntentIntegrator et IntentResult de la librairie zxing
 
+import com.example.ensai.medic.DAO.CodeDAO;
+import com.example.ensai.medic.DAO.MedicDAO;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.squareup.okhttp.Callback;
@@ -31,7 +31,6 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -41,9 +40,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.facebook.stetho.inspector.network.PrettyPrinterDisplayType.JSON;
-import static com.google.android.gms.R.id.progressBar;
 
 public class Scan extends Activity implements  View.OnClickListener ,AdapterView.OnItemClickListener {
     private String text;
@@ -56,9 +52,6 @@ public class Scan extends Activity implements  View.OnClickListener ,AdapterView
 
 
 
-
-   // private MedicDAO medicDAO;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,17 +60,18 @@ public class Scan extends Activity implements  View.OnClickListener ,AdapterView
         Button mybutton = (Button) findViewById(R.id.scan_button);
         mybutton.setOnClickListener(this);
 
-
         AssetManager mngr = this.getAssets();
 
         Log.i("ini", "en cours");
-
-
         Log.i("ini", "" + dao.getAll().size());
 
 
         if (dao.getAll().size() == 0) {
-            (Toast.makeText(getApplicationContext(), "Initialisation du scanner: veuillez patienter", Toast.LENGTH_LONG)).show();
+            Toast toast=Toast.makeText(this, "Initialisation du scanner: veuillez patienter.", Toast.LENGTH_LONG);
+            TextView v4 = (TextView) toast.getView().findViewById(android.R.id.message);
+            v4.setTextColor(Color.RED);
+            toast.show();
+
             try {
                 InputStream iS = mngr.open("CIS_CIP.txt");
                 BufferedReader reader = new BufferedReader(new InputStreamReader(iS));
@@ -92,7 +86,10 @@ public class Scan extends Activity implements  View.OnClickListener ,AdapterView
 
                 }
                 dao.addAll(listeCode);
-                (Toast.makeText(getApplicationContext(), "scanner: initialisé", Toast.LENGTH_LONG)).show();
+                Toast toast2=Toast.makeText(this, "scanner initialisé", Toast.LENGTH_LONG);
+                TextView v5 = (TextView) toast2.getView().findViewById(android.R.id.message);
+                v5.setTextColor(Color.GREEN);
+                toast2.show();
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -111,7 +108,6 @@ public class Scan extends Activity implements  View.OnClickListener ,AdapterView
             // on lance le scanner au clic sur notre bouton
             new IntentIntegrator(this).initiateScan();
             Log.i("scanner", "lancé");
-            (Toast.makeText(getApplicationContext(), "1.scanner: lancé", Toast.LENGTH_LONG)).show();
         }
     }
 
@@ -120,9 +116,7 @@ public class Scan extends Activity implements  View.OnClickListener ,AdapterView
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         //super.onActivityResult(requestCode, resultCode, intent);
 // nous utilisons la classe IntentIntegrator et sa fonction parseActivityResult pour parser le résultat du scan
-        (Toast.makeText(getApplicationContext(), "2.scanner: on activity", Toast.LENGTH_LONG)).show();
         IntentResult scanningResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
-        (Toast.makeText(getApplicationContext(), "3.scanner: resultat reçu", Toast.LENGTH_LONG)).show();
         if (scanningResult != null) {
 
 // nous récupérons le contenu du code barre
@@ -221,8 +215,9 @@ public class Scan extends Activity implements  View.OnClickListener ,AdapterView
 
         }
         else{
-            Toast toast = Toast.makeText(getApplicationContext(),
-                    "Aucune donnée reçu!", Toast.LENGTH_SHORT);
+            Toast toast=Toast.makeText(this, "Aucune donnée reçue !", Toast.LENGTH_SHORT);
+            TextView v3 = (TextView) toast.getView().findViewById(android.R.id.message);
+            v3.setTextColor(Color.BLACK);
             toast.show();
         }
 
@@ -268,4 +263,17 @@ public class Scan extends Activity implements  View.OnClickListener ,AdapterView
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
     }
+
+
+    public void vers_accueil (View v) {
+        Toast toast=Toast.makeText(this, "Retour à l'écran d'accueil", Toast.LENGTH_LONG);
+        TextView v2 = (TextView) toast.getView().findViewById(android.R.id.message);
+        v2.setTextColor(Color.BLACK);
+        toast.show();
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+
+
 }

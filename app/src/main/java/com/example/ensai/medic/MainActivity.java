@@ -2,30 +2,13 @@ package com.example.ensai.medic;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.res.AssetManager;
-import android.content.res.Resources;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
-import static com.example.ensai.medic.ContextProvider.sContext;
+import com.example.ensai.medic.outils.MySQLiteHelper;
 
 
 public class MainActivity extends Activity {
@@ -55,34 +38,25 @@ public class MainActivity extends Activity {
     }
 
     public void vers_pharma(View v) {
-        Toast.makeText(this, "Bienvenue sur l'écran Ma Pharmacie", Toast.LENGTH_LONG).show();
         Intent intent = new Intent(this, MaPharma.class);
         startActivity(intent);
     }
     public void vers_ajouter_medic(View v) {
-        Toast.makeText(this, "Bienvenue sur l'écran Ajouter Medicament", Toast.LENGTH_LONG).show();
         Intent intent = new Intent(this, AjouterMedic.class);
         startActivity(intent);
     }
     public void vers_vaccin(View v) {
-        Toast.makeText(this, "Bienvenue sur l'écran Mes Vaccins", Toast.LENGTH_LONG).show();
         Intent intent = new Intent(this, MesVaccins.class);
         startActivity(intent);
     }
     public void vers_geoloc(View v) {
-        Toast.makeText(this, "Bienvenue sur l'écran Geoloc", Toast.LENGTH_LONG).show();
         Intent intent = new Intent(this, Geoloc.class);
         startActivity(intent);
     }
     public void vers_scan(View v) {
-        Toast.makeText(this, "Bienvenue sur l'écran Scan", Toast.LENGTH_LONG).show();
         Intent intent = new Intent(this, Scan.class);
         startActivity(intent);
     }
-    public void vers_accueil (View v) {
-        Toast.makeText(this, "Retour à l'écran d'accueil", Toast.LENGTH_LONG).show();
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-    }
+
 
 }

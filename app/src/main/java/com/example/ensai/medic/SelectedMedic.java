@@ -2,6 +2,7 @@ package com.example.ensai.medic;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.ensai.medic.DAO.MedicDAO;
 
 /**
  * Created by ensai on 23/05/17.
@@ -50,4 +53,15 @@ public class SelectedMedic extends Activity {
         Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
         startActivity(launchBrowser);
     }
+
+
+    public void vers_accueil (View v) {
+        Toast toast=Toast.makeText(this, "Retour à l'écran d'accueil", Toast.LENGTH_LONG);
+        TextView v2 = (TextView) toast.getView().findViewById(android.R.id.message);
+        v2.setTextColor(Color.BLACK);
+        toast.show();
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
 }
