@@ -266,10 +266,6 @@ public class Scan extends Activity implements  View.OnClickListener ,AdapterView
 
 
     public void vers_accueil (View v) {
-        Toast toast=Toast.makeText(this, "Retour à l'écran d'accueil", Toast.LENGTH_LONG);
-        TextView v2 = (TextView) toast.getView().findViewById(android.R.id.message);
-        v2.setTextColor(Color.BLACK);
-        toast.show();
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }

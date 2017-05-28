@@ -89,7 +89,13 @@ public class MesVaccins extends Activity {
 
         editText.setVisibility(View.VISIBLE);
         bouton_valider.setVisibility(View.VISIBLE);
-        Toast.makeText(this, "Entrez le nom de la personne à ajouter", Toast.LENGTH_LONG).show();
+
+        Toast toast1=Toast.makeText(this, "Entrez le nom de la personne à ajouter: " , Toast.LENGTH_LONG);
+        TextView v3 = (TextView) toast1.getView().findViewById(android.R.id.message);
+        v3.setTextColor(Color.BLACK);
+        toast1.show();
+
+
 
     }
     public void  valider_ajouter_personne(View v) {
@@ -98,7 +104,11 @@ public class MesVaccins extends Activity {
         personnesDAO.open();
         personnesDAO.add(nom);
         personnesDAO.close();
-        Toast.makeText(this, "Ajoutons la personne "+nom, Toast.LENGTH_LONG).show();
+        Toast toast2=Toast.makeText(this, "Ajout de:  "+nom  , Toast.LENGTH_LONG);
+        TextView v3 = (TextView) toast2.getView().findViewById(android.R.id.message);
+        v3.setTextColor(Color.BLACK);
+        toast2.show();
+
         Intent intent = new Intent(this, MesVaccins.class);
         startActivity(intent);
 
@@ -163,7 +173,6 @@ public class MesVaccins extends Activity {
 
 
     public void vers_accueil (View v) {
-        Toast.makeText(this, "Retour à l'écran d'accueil", Toast.LENGTH_LONG).show();
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }

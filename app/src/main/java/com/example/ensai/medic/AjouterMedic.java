@@ -130,7 +130,6 @@ public class AjouterMedic extends Activity implements View.OnClickListener,Adapt
 
 
     public void vers_accueil (View v) {
-        Toast.makeText(this, "Retour à l'écran d'accueil", Toast.LENGTH_LONG).show();
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }

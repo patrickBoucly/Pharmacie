@@ -214,10 +214,6 @@ public void supprimerVaccin(View v){
     }
 
     public void vers_accueil (View v) {
-        Toast toast=Toast.makeText(this, "Retour à l'écran d'accueil", Toast.LENGTH_LONG);
-        TextView v5 = (TextView) toast.getView().findViewById(android.R.id.message);
-        v5.setTextColor(Color.BLACK);
-        toast.show();
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
