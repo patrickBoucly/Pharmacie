@@ -86,6 +86,25 @@
 
     </ListView>
 
+    <Button
+        android:text=" (-) Supprimer une personne"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/supprimer_personne"
+        android:onClick="supprimerPersonne"/>
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner3" />
+
+    <Button
+        android:text="Valider la suppression "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/valider_suppression_personne"
+        android:onClick="validerSuppressionPersonne"/>
+
 
 </LinearLayout>
 

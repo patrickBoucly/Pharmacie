@@ -2,6 +2,7 @@ package com.example.ensai.medic;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,21 +11,32 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ensai.medic.DAO.PersonnesDAO;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import static com.example.ensai.medic.R.id.spinner2;
 
 /**
  * Created by ensai on 11/05/17.
  */
 public class MesVaccins extends Activity {
     private Button bouton2 = null;
+    private Button bouton_valider2 = null;
     private  Button bouton_valider = null;
     private EditText editText=null;
     private ListView resultats_personnes;
     private PersonnesDAO personnesDAO;
+    private Spinner spinner3=null;
+    private String personneASupprimer=null;
+    private String nom="";
+    private List<String> personnes=null;
+
 
 
     @Override
@@ -41,8 +53,14 @@ public class MesVaccins extends Activity {
        bouton2 = (Button) findViewById(R.id.ajouter_personne);
        resultats_personnes = (ListView) findViewById(R.id.resultats_personnes);
 
+        spinner3 = (Spinner) findViewById(R.id.spinner3);
+        spinner3.setVisibility(View.INVISIBLE);
+
+        bouton_valider2= (Button) findViewById(R.id.valider_suppression_personne);
+        bouton_valider2.setVisibility(View.INVISIBLE);
+
     // afficher la liste des personnes enregistrées:
-        List<String> personnes = personnesDAO.getAllNames();
+         personnes= personnesDAO.getAllNames();
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(MesVaccins.this,
                 android.R.layout.simple_list_item_1, personnes);
         resultats_personnes.setAdapter(adapter);
@@ -86,6 +104,63 @@ public class MesVaccins extends Activity {
 
 
     }
+
+
+
+
+
+
+
+    public void supprimerPersonne(View v){
+
+        spinner3.setVisibility(View.VISIBLE);
+        bouton_valider2.setVisibility(View.VISIBLE);
+
+
+        // Creating adapter for spinner
+        ArrayAdapter<String> dataAdapter3 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, personnes);
+
+        // Drop down layout style - list view with radio button
+        dataAdapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // attaching data adapter to spinner
+        spinner3.setAdapter(dataAdapter3);
+
+        spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                Object item = parent.getItemAtPosition(pos);
+                personneASupprimer=item.toString();
+
+            }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+    }
+
+
+    //TODO il faudrait aussi supprimer les vaccins de la personne supprimée (si on a le temps...)
+
+    public void  validerSuppressionPersonne(View v) {
+
+        // supprimer le vaccin dans la base
+        personnesDAO.open();
+        personnesDAO.deletePersonne(personneASupprimer);
+        personnesDAO.close();
+
+        Toast toast3=Toast.makeText(this, "Supprimons la personne "+personneASupprimer  , Toast.LENGTH_LONG);
+        TextView v3 = (TextView) toast3.getView().findViewById(android.R.id.message);
+        v3.setTextColor(Color.BLACK);
+        toast3.show();
+
+        Intent intent = new Intent(this, MesVaccins.class);
+        startActivity(intent);
+
+    }
+
+
+
+
 
     public void vers_accueil (View v) {
         Toast.makeText(this, "Retour à l'écran d'accueil", Toast.LENGTH_LONG).show();

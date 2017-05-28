@@ -32,6 +32,7 @@ public class PersonnesDAO {
     public void close() {
         dbHelper.close();
     }
+
     public void add(String name){
         open();
         database.execSQL("INSERT INTO personnes(nom) VALUES('"+name+"');");
@@ -65,7 +66,12 @@ public class PersonnesDAO {
     }
 
 
+    public void deletePersonne( String nom) {
+        open();
+        database.delete(MySQLiteHelper.TABLE_PERSONNES,"nom=? ",new String[]{nom});
+        close();
 
+    }
 
 
 
