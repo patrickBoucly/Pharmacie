@@ -43,9 +43,10 @@ public class Scan extends Activity implements  View.OnClickListener ,AdapterView
     private String text;
     private String denom;
     private String cis;
-    private ArrayList<Medic> medics= new ArrayList<Medic>();
+    private Medic medic;
     private ListView resultats_scan;
     private CodeDAO dao=new CodeDAO(this);
+    private String date="";
 
 
 
@@ -133,10 +134,10 @@ public class Scan extends Activity implements  View.OnClickListener ,AdapterView
             // si QRcode, on extrait le code CIP contenu à l'intérieur:
             if (scanContent.length()>13 ){
                 // on récupère aussi la date de peremption:
-                String peremption=scanContent.substring(17,23);
+                date=scanContent.substring(19,23);
                 // puis le CIP:
                 scanContent=scanContent.substring(4,17);
-                Toast toasta=Toast.makeText(this,peremption, Toast.LENGTH_LONG);
+                Toast toasta=Toast.makeText(this,date, Toast.LENGTH_LONG);
                 Toast toastb=Toast.makeText(this, scanContent, Toast.LENGTH_LONG);
                 TextView va = (TextView) toasta.getView().findViewById(android.R.id.message);
                 va.setTextColor(Color.BLACK);
@@ -144,7 +145,7 @@ public class Scan extends Activity implements  View.OnClickListener ,AdapterView
                 TextView vb = (TextView) toasta.getView().findViewById(android.R.id.message);
                 vb.setTextColor(Color.BLACK);
                 toastb.show();
-                Log.i("blabla", "peremption "+peremption+" cip: "+scanContent);
+                Log.i("blabla", "peremption "+date+" cip: "+scanContent);
             }
 
 
@@ -180,13 +181,16 @@ public class Scan extends Activity implements  View.OnClickListener ,AdapterView
                         Log.i("test text", text);
                         JSONObject json = new JSONObject(text);
                         denom = json.getString("denomination");
-                        Log.i("test denom", denom);
-                        medics.add(new Medic(1,denom,cis));
+                        MedicDAO medicDAO= new MedicDAO(getApplicationContext());
+                        medicDAO.add(denom,cis,date);
+                        Intent n = new Intent(getApplicationContext(), MaPharma.class);
+                        startActivity(n);
 
                     } catch (JSONException exc) {
 
                         exc.printStackTrace();
                     }
+                    /*
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -208,7 +212,7 @@ public class Scan extends Activity implements  View.OnClickListener ,AdapterView
                                 }
                             });
                         }
-                    }); // fin runOnUiThread
+                    }); // fin runOnUiThread   */
                 } // fin onResponse
             });
 

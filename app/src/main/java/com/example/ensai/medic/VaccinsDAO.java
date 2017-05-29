@@ -18,7 +18,7 @@ public class VaccinsDAO {
 
     private SQLiteDatabase database;
     private MySQLiteHelper dbHelper;
-    private String[] allColumns = { MySQLiteHelper.COLUMN_ID, MySQLiteHelper.COLUMN_Name , MySQLiteHelper.COLUMN_VACCIN, MySQLiteHelper.COLUMN_Date   };
+    private String[] allColumns = { MySQLiteHelper.COLUMN_ID, MySQLiteHelper.COLUMN_Name , MySQLiteHelper.COLUMN_VACCIN, MySQLiteHelper.COLUMN_Peremption   };
 
     public VaccinsDAO(Context context) {
         dbHelper = new MySQLiteHelper(context);

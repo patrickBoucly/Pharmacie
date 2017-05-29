@@ -70,6 +70,32 @@
         android:layout_height="wrap_content"
         android:onClick="information"
         android:id="@+id/info" />
+
+    <Button
+        android:text="Ajouter la date d'expiration sélectionnée"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="AjoutDate"
+        android:id="@+id/peremption" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:id="@+id/dateperemption"
+
+        />
+
+
+    <DatePicker
+        android:id="@+id/simpleDatePicker"
+        android:layout_width="wrap_content"
+        android:calendarViewShown="false"
+        android:layout_height="100dp"
+        android:calendarTextColor="@color/black" />
+
+
+
+
 </LinearLayout>
 
 </ScrollView>

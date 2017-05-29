@@ -26,7 +26,7 @@ import android.widget.Toast;
 public class MaPharma extends Activity {
     Button bouton2 = null;
     ListView mes_medic;
-    private MedicDAO medicDAO;
+    MedicDAO medicDAO=new MedicDAO(ContextProvider.getContext());
     private MonAdapter mesAdapter;
 
     @Override
@@ -59,9 +59,12 @@ public class MaPharma extends Activity {
                         n.putExtra("position", position);
                         Log.i("Envoi",""+ mes_medic.getItemAtPosition(position).toString());
                         try {
+
                             Intent i = new Intent(getApplicationContext(), SelectedMedic.class);
                             i.putExtra("monmedic", mes_medic.getItemAtPosition(position).toString());
-
+                            Medic m=medicDAO.getMedicFromName(mes_medic.getItemAtPosition(position).toString());
+                            Log.i("peremtion : ",m.getPeremption());
+                            i.putExtra("peremption",m.getPeremption());
                             startActivity(i);
                         } catch(ActivityNotFoundException e) {
                             Log.i("erreur",""+e.getMessage());

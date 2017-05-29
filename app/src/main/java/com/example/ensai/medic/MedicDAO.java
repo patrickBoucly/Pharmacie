@@ -6,8 +6,10 @@ package com.example.ensai.medic;
 
 import java.io.BufferedReader;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -20,7 +22,7 @@ import com.example.ensai.medic.MySQLiteHelper;
 public class MedicDAO {
     private SQLiteDatabase database;
     private MySQLiteHelper dbHelper;
-    private String[] allColumns = { MySQLiteHelper.COLUMN_ID,MySQLiteHelper.COLUMN_Name,MySQLiteHelper.COLUMN_CIS,
+    private String[] allColumns = { MySQLiteHelper.COLUMN_ID,MySQLiteHelper.COLUMN_Name,MySQLiteHelper.COLUMN_CIS,MySQLiteHelper.COLUMN_Peremption
     };
 
     public MedicDAO(Context context) {
@@ -36,9 +38,28 @@ public class MedicDAO {
     }
     public void add(String name,String cis){
         open();
+
         database.execSQL("INSERT INTO pharmacie(nom,cis) VALUES('"+name+"','"+cis+"');");
         close();
     }
+    public void add(String name,String cis,String peremption){
+        open();
+        database.execSQL("INSERT INTO pharmacie(nom,cis,peremption) VALUES('"+name+"','"+cis+"','"+peremption+"');");
+        close();
+    }
+    public void update(Medic medic){
+        open();
+        /*
+        ContentValues args = new ContentValues();
+        args.put("name", medic.getName());
+        args.put("cis", medic.getCodeCIS());
+        args.put("peremption", medic.getPeremption());
+        String name=medic.getName();
+        database.update("pharmacie", args, "name" + "=" + '"+name+"', null);*/
+        database.execSQL("UPDATE pharmacie SET peremption='"+medic.getPeremption()+"' where nom='"+medic.getName()+"';");
+        close();
+    }
+
 
     public void deleteMedicCIS(Medic medic) {
         String cis = medic.getCodeCIS();
@@ -52,7 +73,8 @@ public class MedicDAO {
         String[] tableColumns = new String[] {
                 "id",
                 "nom",
-                "cis"
+                "cis",
+                "peremption"
         };
         String whereClause = "nom=?";
         String[] whereArgs = new String[] {
@@ -72,7 +94,8 @@ public class MedicDAO {
         String[] tableColumns = new String[] {
                 "id",
                 "nom",
-                "cis"
+                "cis",
+                "peremption"
         };
         String whereClause = "cis=?";
         String[] whereArgs = new String[] {
@@ -104,7 +127,7 @@ public class MedicDAO {
         return medics;
     }
     private Medic cursorToMedic(Cursor cursor) {
-        Medic medic = new Medic(cursor.getInt(0),cursor.getString(1),cursor.getString(2));
+        Medic medic = new Medic(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getString(3));
         return medic;
     }
     public static List<String> readLines(BufferedReader reader) throws Exception {

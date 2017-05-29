@@ -10,7 +10,7 @@ import android.util.Log;
 
 public class MySQLiteHelper extends SQLiteOpenHelper {
 
-    private String[] allColumnsMedic = { MySQLiteHelper.COLUMN_ID,MySQLiteHelper.COLUMN_Name,MySQLiteHelper.COLUMN_CIS,    };
+    private String[] allColumnsMedic = { MySQLiteHelper.COLUMN_ID,MySQLiteHelper.COLUMN_Name,MySQLiteHelper.COLUMN_CIS,MySQLiteHelper.COLUMN_Peremption   };
     public static final String SAVE_CODE = "INSERT INTO code VALUES (NULL, ?, ?);";
     public static final String SEARCH_ALL_CODE= "SELECT * from code;";
     private String[] allColumns_code = {MySQLiteHelper.COLUMN_CIS,       MySQLiteHelper.COLUMN_CIP};
@@ -21,17 +21,18 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     public static final String COLUMN_ID = "id";
     private static final int DATABASE_VERSION = 1;
     public static final String COLUMN_CIS = "cis";
+    public static final String COLUMN_Peremption="peremption";
     public static final String TABLE_CODE ="code";
     public static final String COLUMN_CIP = "cip";
     public static final String TABLE_PERSONNES="personnes";
     public static final String TABLE_VACCINS="vaccins";
     public static final String COLUMN_VACCIN = "nom";
-    public static final String COLUMN_Date = "date";
+
 
       // Commande sql pour la création de la base de données
 
 
-    private static final String DATABASE_CREATE_PHARMACIE = "create table pharmacie(id integer primary key autoincrement, nom text not null, cis text not null, FOREIGN KEY (cis) REFERENCES code(cis));";
+    private static final String DATABASE_CREATE_PHARMACIE = "create table pharmacie(id integer primary key autoincrement, nom text not null, cis text not null,peremption text , FOREIGN KEY (cis) REFERENCES code(cis));";
 
 //    private static final String DATABASE_CREATE_CODE="create table code(id integer primary key autoincrement,cis text not null, cip text not null);";
     private static final String DATABASE_CREATE_CODE="create table code(cis text not null, cip text primary key not null);";

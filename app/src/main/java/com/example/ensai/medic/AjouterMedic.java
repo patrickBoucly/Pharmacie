@@ -104,12 +104,13 @@ public class AjouterMedic extends Activity implements View.OnClickListener,Adapt
 
                                     public void onItemClick(AdapterView<?> arg0,View arg1, int position, long id){
                                             medicDAO.open();
+                                            String date="";
                                             String name=medics.get(position).getName();
                                             Log.i("ici, name : ",name);
                                             String cis=medics.get(position).getCodeCIS().toString();
                                              Log.i("ici, cis : ",cis);
                                             Toast.makeText(getApplicationContext(), "cis: "+cis, Toast.LENGTH_LONG).show();
-                                            medicDAO.add(name,cis);
+                                            medicDAO.add(name,cis,date);
                                             Intent n = new Intent(getApplicationContext(), MaPharma.class);
                                             startActivity(n);
                                     }
