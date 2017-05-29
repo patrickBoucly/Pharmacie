@@ -1,11 +1,11 @@
-package com.example.ensai.medic.DAO;
+package com.example.ensai.medic;
 
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.example.ensai.medic.outils.MySQLiteHelper;
+import com.example.ensai.medic.MySQLiteHelper;
 
 import java.util.ArrayList;
 import java.util.List;

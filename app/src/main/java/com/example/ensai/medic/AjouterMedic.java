@@ -13,7 +13,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 
-import com.example.ensai.medic.DAO.MedicDAO;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;

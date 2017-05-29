@@ -1,4 +1,4 @@
-package com.example.ensai.medic.outils;
+package com.example.ensai.medic;
 
 /**
  * Created by ensai on 19/05/17.
@@ -15,7 +15,7 @@ package com.example.ensai.medic.outils;
 
         import com.example.ensai.medic.Medic;
         import com.example.ensai.medic.R;
-        import com.example.ensai.medic.outils.ContextProvider;
+        import com.example.ensai.medic.ContextProvider;
         import java.util.List;
 
 

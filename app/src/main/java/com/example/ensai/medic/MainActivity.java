@@ -8,8 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.ensai.medic.outils.MySQLiteHelper;
-
 
 public class MainActivity extends Activity {
     private Button buttonPharma;

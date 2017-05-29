@@ -1,4 +1,4 @@
-package com.example.ensai.medic.DAO;
+package com.example.ensai.medic;
 
 /**
  * Created by ensai on 19/05/17.
@@ -14,7 +14,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.ensai.medic.Medic;
-import com.example.ensai.medic.outils.MySQLiteHelper;
+import com.example.ensai.medic.MySQLiteHelper;
 
 
 public class MedicDAO {

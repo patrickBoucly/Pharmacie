@@ -19,9 +19,6 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.ensai.medic.DAO.MedicDAO;
-import com.example.ensai.medic.outils.MonAdapter;
-
 
 /**
  * Created by ensai on 11/05/17.

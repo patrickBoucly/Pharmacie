@@ -15,12 +15,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.ensai.medic.DAO.PersonnesDAO;
-
-import java.util.ArrayList;
 import java.util.List;
-
-import static com.example.ensai.medic.R.id.spinner2;
 
 /**
  * Created by ensai on 11/05/17.

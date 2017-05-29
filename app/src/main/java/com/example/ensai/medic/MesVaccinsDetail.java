@@ -16,8 +16,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.ensai.medic.DAO.VaccinsDAO;
-
 import java.util.ArrayList;
 import java.util.List;
 

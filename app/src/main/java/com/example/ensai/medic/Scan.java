@@ -22,8 +22,6 @@ import android.widget.Toast;
 
 // on importe les classes IntentIntegrator et IntentResult de la librairie zxing
 
-import com.example.ensai.medic.DAO.CodeDAO;
-import com.example.ensai.medic.DAO.MedicDAO;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.squareup.okhttp.Callback;
