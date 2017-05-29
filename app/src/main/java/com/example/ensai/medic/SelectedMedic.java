@@ -21,6 +21,7 @@ import java.util.Date;
 public class SelectedMedic extends Activity {
     TextView tv;
     Button sup;
+    Button ajouterDate;
     Button info;
     String monMedic="Médicament sélectionné : ";
     String nomMedic;
@@ -40,10 +41,12 @@ public class SelectedMedic extends Activity {
         tv.setText(monMedic+medic);
         sup=(Button) findViewById(R.id.supprimer);
         info=(Button) findViewById(R.id.info);
+        ajouterDate=(Button) findViewById(R.id.ajouterDate);
         dateperemption=(TextView) findViewById(R.id.dateperemption);
         simpleDatePicker = (DatePicker) findViewById(R.id.simpleDatePicker);
         if(date.length()>1) {
             simpleDatePicker.setVisibility(View.INVISIBLE);
+            ajouterDate.setVisibility(View.INVISIBLE);
             dateperemption.setText("Date d'expiration : " + date.substring(2) + "/20" + date.substring(0, 2));
         }
              // initiate a date picker
@@ -95,7 +98,7 @@ public class SelectedMedic extends Activity {
 
 
     public void vers_accueil (View v) {
-        Intent intent = new Intent(this, SelectedMedic.class);
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 

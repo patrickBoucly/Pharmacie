@@ -49,13 +49,6 @@ public class MedicDAO {
     }
     public void update(Medic medic){
         open();
-        /*
-        ContentValues args = new ContentValues();
-        args.put("name", medic.getName());
-        args.put("cis", medic.getCodeCIS());
-        args.put("peremption", medic.getPeremption());
-        String name=medic.getName();
-        database.update("pharmacie", args, "name" + "=" + '"+name+"', null);*/
         database.execSQL("UPDATE pharmacie SET peremption='"+medic.getPeremption()+"' where nom='"+medic.getName()+"';");
         close();
     }
