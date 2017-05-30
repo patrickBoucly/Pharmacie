@@ -1,7 +1,10 @@
 package com.example.ensai.medic;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,7 +12,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -60,16 +67,19 @@ public class SelectedMedic extends Activity {
         startActivity(i);
         finish();
     }
+
+
+
     public void information(View v) {
-        MedicDAO dao=new MedicDAO(this);
-        Medic m=dao.getMedicFromName(nomMedic);
-        Log.i("monId",""+m.getIdMedic());
-        Log.i("monCIS ", m.getCodeCIS());
-        Log.i("monName ", m.getName());
-        String url="http://base-donnees-publique.medicaments.gouv.fr/affichageDoc.php?specid="+ m.getCodeCIS()+"&typedoc=R";
-        Uri uriUrl = Uri.parse(url);
-        Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
-        startActivity(launchBrowser);
+            MedicDAO dao = new MedicDAO(this);
+            Medic m = dao.getMedicFromName(nomMedic);
+            Log.i("monId", "" + m.getIdMedic());
+            Log.i("monCIS ", m.getCodeCIS());
+            Log.i("monName ", m.getName());
+            String url = "http://base-donnees-publique.medicaments.gouv.fr/affichageDoc.php?specid=" + m.getCodeCIS() + "&typedoc=R";
+            Uri uriUrl = Uri.parse(url);
+            Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
+            startActivity(launchBrowser);
     }
 
     public void AjoutDate(View v) {

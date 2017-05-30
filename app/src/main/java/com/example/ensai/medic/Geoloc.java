@@ -12,6 +12,8 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.location.LocationProvider;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -43,6 +45,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.identity.intents.Address;
+
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.MapView;
 import com.squareup.okhttp.Callback;
@@ -57,6 +60,9 @@ import org.json.JSONObject;
 import java.io.FileDescriptor;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.security.Provider;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -132,7 +138,15 @@ public class Geoloc extends Activity {
                              coordonnees = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
                             //coordonnees=locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
-                            if(coordonnees==null){
+
+
+
+
+
+
+
+                            if(coordonnees==null) {
+
                                 Toast.makeText(this, "Dernière localisation impossible", Toast.LENGTH_LONG).show();
                                 coordonnees=new Location("");//provider name is unnecessary
                                 coordonnees.setLatitude(48.033329d);//your coords of course
@@ -165,104 +179,96 @@ public class Geoloc extends Activity {
 
 
 
+                                // on lance la requete des pharmacies autour
 
-                            // on lance la requete des pharmacies autour
+                                Log.d("coord", "location=" + latitude + "," + longitude + "&radius=2000");
 
-                            Log.d("coord", "location="+latitude+","+longitude+"&radius=2000");
-
-                            OkHttpClient okhttpClient = new OkHttpClient();
-                            Request myGetRequest = new Request.Builder()
-                                    .url("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="+latitude+","+longitude+"&radius=1500&types=pharmacy&key=AIzaSyD1syvaUahKlwgsvgHZhzHtFwcHHAblNHQ")
-                                    .build();
-
-
-                            okhttpClient.newCall(myGetRequest).enqueue(new Callback() {
-
-                                @Override
-                                public void onFailure(Request request, IOException e) {
-
-                                }
-
-// fonction qui effectue le parsing du json récupéré via google
-                                @Override
-                                public void onResponse(Response response) throws IOException {
-
-                                    try {
-                                        text = response.body().string();
-                                        JSONObject json = new JSONObject(text);
-                                        //Log.d("test", json.toString());
-                                        JSONArray jArray = json.getJSONArray("results");
-                                        //Log.d("test2", jArray.toString());
+                                OkHttpClient okhttpClient = new OkHttpClient();
+                                Request myGetRequest = new Request.Builder()
+                                        .url("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + latitude + "," + longitude + "&radius=1500&types=pharmacy&key=AIzaSyD1syvaUahKlwgsvgHZhzHtFwcHHAblNHQ")
+                                        .build();
 
 
-                                        for (int i = 0; i < jArray.length(); i++) {
-                                            String info = jArray.getJSONObject(i).getString("name") +", adresse: " + jArray.getJSONObject(i).getString("vicinity");
-                                            list.add(info);
-                                            Log.d("pharmacies_proches", info);
+                                okhttpClient.newCall(myGetRequest).enqueue(new Callback() {
 
-                                        }
+                                    @Override
+                                    public void onFailure(Request request, IOException e) {
 
-
-                                    } catch (JSONException exc) {
-
-                                        exc.printStackTrace();
                                     }
 
+                                    // fonction qui effectue le parsing du json récupéré via google
+                                    @Override
+                                    public void onResponse(Response response) throws IOException {
 
-                                    runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            //Log.i("TEST", text);
-                                           //tv3.setText(list.toString());
-                                            final ArrayAdapter<String> adapter = new ArrayAdapter<String>(Geoloc.this,
-                                                    android.R.layout.simple_list_item_1, list);
-                                            resultats.setAdapter(adapter);
-
-                                            resultats.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-
-                                                public void onItemClick(AdapterView<?> arg0,View arg1, int position, long id){
+                                        try {
+                                            text = response.body().string();
+                                            JSONObject json = new JSONObject(text);
+                                            //Log.d("test", json.toString());
+                                            JSONArray jArray = json.getJSONArray("results");
+                                            //Log.d("test2", jArray.toString());
 
 
-                                                    Intent n = new Intent(getApplicationContext(), MaPharma.class);
-                                                    n.putExtra("position", position);
-                                                    Log.i("Envoi",""+ resultats.getItemAtPosition(position).toString());
-                                                    try {
-                                                        //pour afficher juste la pharmacie choisie
-                                                       // Uri uri = Uri.parse("geo:0,0?q="+resultats.getItemAtPosition(position).toString());
-                                                       // Intent it = new Intent(Intent.ACTION_VIEW,uri);
-                                                        //startActivity(it);
+                                            for (int i = 0; i < jArray.length(); i++) {
+                                                String info = jArray.getJSONObject(i).getString("name") + ", adresse: " + jArray.getJSONObject(i).getString("vicinity");
+                                                list.add(info);
+                                                Log.d("pharmacies_proches", info);
 
-                                                        // pour afficher le trajet entre localisation user et la pharmacie choisie
-                                                        String uri = "http://maps.google.com/maps?saddr=" + coordonnees.getLatitude()+","+coordonnees.getLongitude()+"&daddr="+resultats.getItemAtPosition(position).toString();
-                                                        Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(uri));
-                                                        intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
-                                                        startActivity(intent);
+                                            }
 
 
-                                                    } catch(ActivityNotFoundException e) {
-                                                        Toast toast= Toast.makeText(getApplicationContext(), "GoogleMap non trouvé", Toast.LENGTH_LONG);
-                                                        TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
-                                                        v.setTextColor(Color.RED);
-                                                        toast.show();
+                                        } catch (JSONException exc) {
 
-                                                    }
-                                                    //test
-                                                   // startActivity(n);
-                                                }
-                                            });
-
-
-
-
-
-
-
-
-
+                                            exc.printStackTrace();
                                         }
-                                    }); // fin runOnUiThread
-                                } // fin onResponse
-                            });//fin Callback
+
+
+                                        runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                //Log.i("TEST", text);
+                                                //tv3.setText(list.toString());
+                                                final ArrayAdapter<String> adapter = new ArrayAdapter<String>(Geoloc.this,
+                                                        android.R.layout.simple_list_item_1, list);
+                                                resultats.setAdapter(adapter);
+
+                                                resultats.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                                                    public void onItemClick(AdapterView<?> arg0, View arg1, int position, long id) {
+
+
+                                                        Intent n = new Intent(getApplicationContext(), MaPharma.class);
+                                                        n.putExtra("position", position);
+                                                        Log.i("Envoi", "" + resultats.getItemAtPosition(position).toString());
+                                                        try {
+                                                            //pour afficher juste la pharmacie choisie
+                                                            // Uri uri = Uri.parse("geo:0,0?q="+resultats.getItemAtPosition(position).toString());
+                                                            // Intent it = new Intent(Intent.ACTION_VIEW,uri);
+                                                            //startActivity(it);
+
+                                                            // pour afficher le trajet entre localisation user et la pharmacie choisie
+                                                            String uri = "http://maps.google.com/maps?saddr=" + coordonnees.getLatitude() + "," + coordonnees.getLongitude() + "&daddr=" + resultats.getItemAtPosition(position).toString();
+                                                            Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(uri));
+                                                            intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
+                                                            startActivity(intent);
+
+
+                                                        } catch (ActivityNotFoundException e) {
+                                                            Toast toast = Toast.makeText(getApplicationContext(), "GoogleMap non trouvé", Toast.LENGTH_LONG);
+                                                            TextView v = (TextView) toast.getView().findViewById(android.R.id.message);
+                                                            v.setTextColor(Color.RED);
+                                                            toast.show();
+
+                                                        }
+                                                        //test
+                                                        // startActivity(n);
+                                                    }
+                                                });
+
+
+                                            }
+                                        }); // fin runOnUiThread
+                                    } // fin onResponse
+                                });//fin Callback
 
 
 
@@ -285,6 +291,8 @@ public class Geoloc extends Activity {
             // permissions this app might request
         }
     }
+
+    //verifie si l'apli a bien accès à internet
 
     public void vers_accueil (View v) {
         Intent intent = new Intent(this, MainActivity.class);

@@ -3,9 +3,12 @@ package com.example.ensai.medic;
 import android.app.Activity;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.RingtoneManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 
 import android.support.v4.app.ActivityCompat;
@@ -17,12 +20,18 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 
 public class MainActivity extends Activity {
+
     private Button buttonPharma;
     private Button ajouter_medic;
     private Button vaccin;
@@ -35,6 +44,7 @@ public class MainActivity extends Activity {
     private PendingIntent pendingIntentVac;
     private PendingIntent pendingIntentMed;
     private int i=0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

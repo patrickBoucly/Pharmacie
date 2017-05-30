@@ -1,7 +1,10 @@
 package com.example.ensai.medic;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -23,6 +26,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 
 import android.widget.Toast;
@@ -53,6 +58,8 @@ public class AjouterMedic extends Activity implements View.OnClickListener,Adapt
         Log.i("TEST1", tv3.getText().toString());
         medicDAO= new MedicDAO(this);
     }
+
+
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.bouton_ajouter:
@@ -65,62 +72,66 @@ public class AjouterMedic extends Activity implements View.OnClickListener,Adapt
                 Request myGetRequest = new Request.Builder()
                         .url(adresse)
                         .build();
-                okhttpClient.newCall(myGetRequest).enqueue(new Callback() {
-                    @Override
-                    public void onFailure(Request request, IOException e) {
-                    }
-                    @Override
-                    public void onResponse(Response response) throws IOException {
-                        //le retour est effectué dans un thread différent
-                        try {
-                            medics= new ArrayList<Medic>();
-                            text = response.body().string();
-                            JSONArray json = new JSONArray(text);
-                            for (int i = 0; i < json.length(); i++) {
-                                JSONObject jsonobject = json.getJSONObject(i);
-                                denom = jsonobject.getString("denomination");
-                                String code = ""+jsonobject.getInt("codeCIS");
-                                medics.add(new Medic(1,denom,code));
-                            }
-                        } catch (JSONException exc) {
 
-                            exc.printStackTrace();
+
+                    okhttpClient.newCall(myGetRequest).enqueue(new Callback() {
+                        @Override
+                        public void onFailure(Request request, IOException e) {
                         }
-                       runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                ArrayList<String> medic= new ArrayList<String>();
-                                for(Medic med: medics){
-                                    medic.add(med.getName());
+
+                        @Override
+                        public void onResponse(Response response) throws IOException {
+                            //le retour est effectué dans un thread différent
+                            try {
+                                medics = new ArrayList<Medic>();
+                                text = response.body().string();
+                                JSONArray json = new JSONArray(text);
+                                for (int i = 0; i < json.length(); i++) {
+                                    JSONObject jsonobject = json.getJSONObject(i);
+                                    denom = jsonobject.getString("denomination");
+                                    String code = "" + jsonobject.getInt("codeCIS");
+                                    medics.add(new Medic(1, denom, code));
                                 }
-                                //TODO pb avec le tri aplhabetique: affichage correct mais selection erronnée ...
-                                //tri alpabetique
-                                // Collections.sort(medic);
+                            } catch (JSONException exc) {
 
-                                final ArrayAdapter<String> adapter = new ArrayAdapter<String>(AjouterMedic.this,
-                                        android.R.layout.simple_list_item_1, medic);
-                                resultats.setAdapter(adapter);
+                                exc.printStackTrace();
+                            }
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    ArrayList<String> medic = new ArrayList<String>();
+                                    for (Medic med : medics) {
+                                        medic.add(med.getName());
+                                    }
+                                    //TODO pb avec le tri aplhabetique: affichage correct mais selection erronnée ...
+                                    //tri alpabetique
+                                    // Collections.sort(medic);
 
-                                resultats.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+                                    final ArrayAdapter<String> adapter = new ArrayAdapter<String>(AjouterMedic.this,
+                                            android.R.layout.simple_list_item_1, medic);
+                                    resultats.setAdapter(adapter);
 
-                                    public void onItemClick(AdapterView<?> arg0,View arg1, int position, long id){
+                                    resultats.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                                        public void onItemClick(AdapterView<?> arg0, View arg1, int position, long id) {
                                             medicDAO.open();
-                                            String date="";
-                                            String name=medics.get(position).getName();
-                                            Log.i("ici, name : ",name);
-                                            String cis=medics.get(position).getCodeCIS().toString();
-                                             Log.i("ici, cis : ",cis);
-                                            Toast.makeText(getApplicationContext(), "cis: "+cis, Toast.LENGTH_LONG).show();
-                                            medicDAO.add(name,cis,date);
+                                            String date = "";
+                                            String name = medics.get(position).getName();
+                                            Log.i("ici, name : ", name);
+                                            String cis = medics.get(position).getCodeCIS().toString();
+                                            Log.i("ici, cis : ", cis);
+                                            Toast.makeText(getApplicationContext(), "cis: " + cis, Toast.LENGTH_LONG).show();
+                                            medicDAO.add(name, cis, date);
                                             Intent n = new Intent(getApplicationContext(), MaPharma.class);
                                             startActivity(n);
                                             finish();
-                                    }
-                                });
-                            }
-                        }); // fin runOnUiThread
-                    } // fin onResponse
-                });//fin Callback
+                                        }
+                                    });
+                                }
+                            }); // fin runOnUiThread
+                        } // fin onResponse
+                    });//fin Callback
+
                 break;
             default:
                 break;
