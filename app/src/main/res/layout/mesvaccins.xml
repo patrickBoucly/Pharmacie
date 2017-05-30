@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -50,53 +53,76 @@
     <View
         android:layout_width="fill_parent"
         android:background="#e4f4e9"
-        android:layout_height="30dp" />
+        android:layout_height="20dp" />
 
-
+    <!-- Le linear layout suivant affiche + et - de personne-->
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+          android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
 
     <Button
-        android:text=" (+) Ajouter une personne"
+        android:text=" (+) personne"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/ajouter_personne"
         android:onClick="ajouter_personne"/>
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:text=""
-        android:ems="10"
-        android:id="@+id/personne"
-        android:selectAllOnFocus="false" />
+        <Button
+            android:text=" (-) personne"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/supprimer_personne"
+            android:onClick="supprimerPersonne"/>
 
-    <Button
-        android:text="Valider l'ajout "
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/valider_ajouter_personne"
-        android:onClick="valider_ajouter_personne"/>
-
-    <ListView
-        android:layout_width="wrap_content"
-        android:id="@+id/resultats_personnes"
-        android:layout_height="300dp">
-
-    </ListView>
+    </LinearLayout>
 
 
-    <Button
-        android:text=" (-) Supprimer une personne"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/supprimer_personne"
-        android:onClick="supprimerPersonne"/>
+    <!-- Le linear layout suivant affiche les listes textes-->
 
-    <Spinner
+    <LinearLayout
+        android:id="@+id/linearLayout3"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/red"
-        android:id="@+id/spinner3" />
+        android:layout_height="wrap_content" >
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:text=""
+            android:ems="10"
+            android:id="@+id/personne"
+            android:selectAllOnFocus="false" />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinner3"
+            />
+
+
+    </LinearLayout>
+
+    <!-- Le linear layout suivant affiche lle reste -->
+
+    <LinearLayout
+        android:id="@+id/linearLayout4"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+
+
+            <Button
+                android:text="Valider l'ajout "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/valider_ajouter_personne"
+                android:onClick="valider_ajouter_personne"/>
+
+
 
     <Button
         android:text="Valider la suppression "
@@ -105,9 +131,17 @@
         android:id="@+id/valider_suppression_personne"
         android:onClick="validerSuppressionPersonne"/>
 
+    </LinearLayout>
 
+    <ListView
+        android:layout_width="wrap_content"
+        android:id="@+id/resultats_personnes"
+        android:layout_height="300dp">
 
-
+    </ListView>
 </LinearLayout>
+
+
+</ScrollView>
 
 
