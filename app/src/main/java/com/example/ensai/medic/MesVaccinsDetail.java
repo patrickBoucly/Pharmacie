@@ -40,7 +40,7 @@ public class MesVaccinsDetail extends Activity {
     private DatePicker datePicker=null;
     private CheckBox cb;
     private Boolean check;
-
+    private List<Vaccin> vaccins;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mesvaccinsdetail);
@@ -68,7 +68,7 @@ public class MesVaccinsDetail extends Activity {
 
 
         // afficher la liste des personnes enregistrées:
-        List<Vaccin> vaccins = vaccinsDAO.getFromName(nom);
+        vaccins = vaccinsDAO.getFromName(nom);
         List<String> message=new ArrayList<String>();
         for(Vaccin v:vaccins){
             Log.i("getrea:",""+v.getRealise());
@@ -83,6 +83,19 @@ public class MesVaccinsDetail extends Activity {
         resultats_vaccins.setAdapter(adapter);
 
 
+        resultats_vaccins.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            public void onItemClick(AdapterView<?> arg0, View arg1, int position, long id) {
+                Intent n = new Intent(getApplicationContext(), ModifierVaccin.class);
+                n.putExtra("ind", vaccins.get(position).getIndividu());
+                n.putExtra("date", vaccins.get(position).getDate());
+                n.putExtra("denom", vaccins.get(position).getdenomination());
+                n.putExtra("fait", vaccins.get(position).getRealise());
+                Log.i("Envoi", "" + resultats_vaccins.getItemAtPosition(position).toString());
+                startActivity(n);
+
+            }
+        });
 
         // Spinner element
         spinner = (Spinner) findViewById(R.id.spinner);

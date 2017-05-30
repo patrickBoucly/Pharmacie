@@ -45,6 +45,21 @@ public class VaccinsDAO {
         database.execSQL("INSERT INTO vaccins(nom,vaccin,date,realise) VALUES('"+v.getIndividu()+"','"+v.getdenomination()+"','"+v.getDate()+"','"+v.getRealise()+"');");
         close();
     }
+
+    public void update(Vaccin v){
+        open();
+        database.execSQL("UPDATE vaccins SET realise='"+v.getRealise()+"' where nom='"+v.getIndividu()+"' and vaccin='"+v.getdenomination()+"' and date='"+v.getDate()+"';");
+        close();
+    }
+    public void updateDate(Vaccin v) {
+        open();
+        database.execSQL("UPDATE vaccins SET date='"+v.getDate()+"' where nom='"+v.getIndividu()+"' and vaccin='"+v.getdenomination()+"' and realise='"+v.getRealise()+"';");
+        close();
+    }
+
+
+
+
     public List<Vaccin> getAllVaccins() {
         open();
         List<Vaccin> vaccins = new ArrayList<Vaccin>();

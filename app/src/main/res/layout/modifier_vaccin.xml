@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <Button
+        android:text="modifier la date de péremption"
+        android:layout_width="wrap_content"
+        android:background="#66ba59"
+        android:layout_height="wrap_content"
+        android:onClick="modifierDate"
+        android:textColor="#ffffff"
+        android:textSize="18dp"
+        android:id="@+id/modif_date" />
+    <Button
+        android:text="modifier l'état du vaccin"
+        android:layout_width="wrap_content"
+        android:background="#66ba59"
+        android:layout_height="wrap_content"
+        android:onClick="modifierEtat"
+        android:textColor="#ffffff"
+        android:textSize="18dp"
+        android:id="@+id/modif_etat" />
+    <DatePicker
+        android:id="@+id/datePicker2"
+        android:layout_width="wrap_content"
+        android:calendarViewShown="false"
+        android:layout_height="100dp"
+        android:calendarTextColor="@color/black" />
+    <Button
+        android:text="valider la date selectionnée"
+        android:layout_width="wrap_content"
+        android:background="#66ba59"
+        android:layout_height="wrap_content"
+        android:onClick="valider"
+        android:textColor="#ffffff"
+        android:textSize="18dp"
+        android:id="@+id/valider_date" />
+
+
+
+
+
+
+
+</LinearLayout>

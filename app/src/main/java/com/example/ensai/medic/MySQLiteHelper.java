@@ -38,7 +38,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_CREATE_PERSONNES="create table personnes(nom text primary key not null);";
 
-    private static final String DATABASE_CREATE_VACCINS="create table vaccins(id integer primary key autoincrement,nom text , vaccin text , date text,realise intrger);";
+    private static final String DATABASE_CREATE_VACCINS="create table vaccins(id integer primary key autoincrement,nom text , vaccin text , date text,realise integer);";
 
     public MySQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
