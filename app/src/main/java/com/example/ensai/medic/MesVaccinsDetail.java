@@ -220,7 +220,10 @@ public void supprimerVaccin(View v){
             String vaccinAvecDateASupprimer= item.toString();
             //extraire uniquement le nom du vaccin daté
             int longueurChaine=vaccinAvecDateASupprimer.length();
-            vaccinASupprimer=vaccinAvecDateASupprimer.substring(0, longueurChaine-12);
+            Log.i("vaccin supp", vaccinAvecDateASupprimer);
+            //vaccinASupprimer=vaccinAvecDateASupprimer.substring(0, longueurChaine-12);
+            vaccinASupprimer=vaccinAvecDateASupprimer;
+            Log.i("vaccin supp2", vaccinASupprimer);
 
         }
         public void onNothingSelected(AdapterView<?> parent) {

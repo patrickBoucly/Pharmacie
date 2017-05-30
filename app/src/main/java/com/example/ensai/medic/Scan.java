@@ -60,6 +60,7 @@ public class Scan extends Activity implements  View.OnClickListener ,AdapterView
         setContentView(R.layout.scan);
         resultats_scan = (ListView) findViewById(R.id.resultats_scan);
         Button mybutton = (Button) findViewById(R.id.scan_button);
+        mybutton.setVisibility(View.INVISIBLE);
         mybutton.setOnClickListener(this);
 
         AssetManager mngr = this.getAssets();
@@ -92,6 +93,7 @@ public class Scan extends Activity implements  View.OnClickListener ,AdapterView
                 TextView v5 = (TextView) toast2.getView().findViewById(android.R.id.message);
                 v5.setTextColor(Color.GREEN);
                 toast2.show();
+                mybutton.setVisibility(View.VISIBLE);
 
             } catch (IOException e) {
                 e.printStackTrace();

@@ -85,7 +85,7 @@ public class MesVaccins extends Activity {
         editText.setVisibility(View.VISIBLE);
         bouton_valider.setVisibility(View.VISIBLE);
 
-        Toast toast1=Toast.makeText(this, "Entrez le nom de la personne à ajouter: " , Toast.LENGTH_LONG);
+        Toast toast1=Toast.makeText(this, "Entrez le nom de la personne à ajouter (elle ne doit pas être déjà présente): " , Toast.LENGTH_LONG);
         TextView v3 = (TextView) toast1.getView().findViewById(android.R.id.message);
         v3.setTextColor(Color.BLACK);
         toast1.show();
@@ -96,16 +96,36 @@ public class MesVaccins extends Activity {
     public void  valider_ajouter_personne(View v) {
         String nom = editText.getText().toString();
         Log.i("vaccins", nom);
-        personnesDAO.open();
-        personnesDAO.add(nom);
-        personnesDAO.close();
-        Toast toast2=Toast.makeText(this, "Ajout de:  "+nom  , Toast.LENGTH_LONG);
-        TextView v3 = (TextView) toast2.getView().findViewById(android.R.id.message);
-        v3.setTextColor(Color.BLACK);
-        toast2.show();
+        //verifions que le nom ne soit pas déjà pris
+        boolean nomDejaPris=false;
+       List<String> listeNoms= personnesDAO.getAllNames();
+        for (String n:listeNoms){
+            if (n.equals(nom)){
+                nomDejaPris=true;
+            }
 
-        Intent intent = new Intent(this, MesVaccins.class);
-        startActivity(intent);
+        }
+        Log.i("dejapris",""+ nomDejaPris);
+        if (nomDejaPris){
+            Toast toast2=Toast.makeText(this, "Le nom  "+nom +" est déjà pris !" , Toast.LENGTH_LONG);
+            TextView v3 = (TextView) toast2.getView().findViewById(android.R.id.message);
+            v3.setTextColor(Color.BLACK);
+            toast2.show();
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        } else{
+
+            personnesDAO.open();
+            personnesDAO.add(nom);
+            personnesDAO.close();
+            Toast toast2 = Toast.makeText(this, "Ajout de:  " + nom, Toast.LENGTH_LONG);
+            TextView v3 = (TextView) toast2.getView().findViewById(android.R.id.message);
+            v3.setTextColor(Color.BLACK);
+            toast2.show();
+
+            Intent intent = new Intent(this, MesVaccins.class);
+            startActivity(intent);
+        }
 
 
     }
