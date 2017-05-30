@@ -3,6 +3,7 @@ package com.example.ensai.medic;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -50,7 +51,6 @@ public class MesVaccins extends Activity {
 
         spinner3 = (Spinner) findViewById(R.id.spinner3);
         spinner3.setVisibility(View.INVISIBLE);
-
         bouton_valider2= (Button) findViewById(R.id.valider_suppression_personne);
         bouton_valider2.setVisibility(View.INVISIBLE);
 
