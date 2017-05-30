@@ -28,8 +28,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     public static final String TABLE_VACCINS="vaccins";
     public static final String COLUMN_VACCIN = "nom";
 
-
-      // Commande sql pour la création de la base de données
+    // Commande sql pour la création de la base de données
 
 
     private static final String DATABASE_CREATE_PHARMACIE = "create table pharmacie(id integer primary key autoincrement, nom text not null, cis text not null,peremption text , FOREIGN KEY (cis) REFERENCES code(cis));";
@@ -39,7 +38,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_CREATE_PERSONNES="create table personnes(nom text primary key not null);";
 
-    private static final String DATABASE_CREATE_VACCINS="create table vaccins(id integer primary key autoincrement,nom text , vaccin text , date text);";
+    private static final String DATABASE_CREATE_VACCINS="create table vaccins(id integer primary key autoincrement,nom text , vaccin text , date text,realise intrger);";
 
     public MySQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

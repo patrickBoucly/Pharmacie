@@ -32,7 +32,7 @@
 
 
         <TextView
-            android:text="           Ma Pharmacie "
+            android:text="         Ma Pharmacie "
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -53,30 +53,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
+        android:textSize="50px"
+        android:lines="4"
+        android:maxLines="4"
         android:id="@+id/selectedmedic"
 
         />
-
-    <Button
-        android:text="Supprimer ce médicament de ma pharmacie"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="suppresion"
-        android:id="@+id/supprimer" />
-
-    <Button
-        android:text="Obtenir des informations sur ce médicament"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="information"
-        android:id="@+id/info" />
-
-    <Button
-        android:text="Ajouter la date d'expiration sélectionnée"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="AjoutDate"
-        android:id="@+id/ajouterDate" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -85,12 +67,38 @@
 
         />
 
+    <Button
+        android:text="Supprimer ce médicament de ma pharmacie"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="suppresion"
+        android:background="@drawable/button_selector"
+        android:id="@+id/supprimer" />
+
+    <Button
+        android:text="Obtenir des informations sur ce médicament"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="information"
+        android:background="@drawable/button_selector"
+        android:id="@+id/info" />
+
+    <Button
+        android:text="Ajouter la date d'expiration sélectionnée"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="AjoutDate"
+        android:background="@drawable/button_selector"
+        android:id="@+id/ajouterDate" />
+
+
 
     <DatePicker
         android:id="@+id/simpleDatePicker"
         android:layout_width="wrap_content"
         android:calendarViewShown="false"
         android:layout_height="100dp"
+        android:background="@drawable/button_selector"
         android:calendarTextColor="@color/black" />
 
 

@@ -23,7 +23,7 @@ public class SelectedMedic extends Activity {
     Button sup;
     Button ajouterDate;
     Button info;
-    String monMedic="Médicament sélectionné : ";
+    String monMedic="Médicament sélectionné : \n";
     String nomMedic;
     String date="";
     DatePicker simpleDatePicker;

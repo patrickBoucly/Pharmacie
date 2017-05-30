@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -37,6 +38,8 @@ public class MesVaccinsDetail extends Activity {
     private String vaccinAjoute=null;
     private String vaccinASupprimer=null;
     private DatePicker datePicker=null;
+    private CheckBox cb;
+    private Boolean check;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,8 +55,9 @@ public class MesVaccinsDetail extends Activity {
         bouton_valider.setVisibility(View.INVISIBLE);
         bouton_valider2= (Button) findViewById(R.id.valider_suppression_vaccin);
         bouton_valider2.setVisibility(View.INVISIBLE);
-
-        bouton2 = (Button) findViewById(R.id.ajouter_personne);
+        bouton_valider2= (Button) findViewById(R.id.valider_suppression_vaccin);
+        cb = (CheckBox) findViewById(R.id.checkbox);
+        check=cb.isChecked();
         resultats_vaccins = (ListView) findViewById(R.id.resultats_vaccins);
 
         datePicker = (DatePicker) findViewById(R.id.datePicker);
@@ -64,9 +68,18 @@ public class MesVaccinsDetail extends Activity {
 
 
         // afficher la liste des personnes enregistrées:
-        List<String> vaccins = vaccinsDAO.getFromName(nom);
+        List<Vaccin> vaccins = vaccinsDAO.getFromName(nom);
+        List<String> message=new ArrayList<String>();
+        for(Vaccin v:vaccins){
+            Log.i("getrea:",""+v.getRealise());
+            String fait=" pas encore réalisé";
+            if(v.getRealise()==1){
+                fait=" a été réalisé";
+            }
+            message.add(v.getdenomination()+" :"+fait+"   "+v.getDate());
+        }
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(MesVaccinsDetail.this,
-                android.R.layout.simple_list_item_1, vaccins);
+                android.R.layout.simple_list_item_1, message);
         resultats_vaccins.setAdapter(adapter);
 
 
@@ -146,7 +159,12 @@ public class MesVaccinsDetail extends Activity {
 
         // ajouter le vaccin dans la base
         vaccinsDAO.open();
-        vaccinsDAO.add(nom, vaccin, date);
+        Log.i("cb",""+check);
+        int i=0;
+        if(check){
+            i=1;
+        }
+        vaccinsDAO.add(nom, vaccin, date,i);
         vaccinsDAO.close();
 
         Toast toast2=Toast.makeText(this, "Ajoutons le vaccin "+vaccin + " pour: "+nom + " à la date du " +date, Toast.LENGTH_LONG);
@@ -159,17 +177,23 @@ public class MesVaccinsDetail extends Activity {
         startActivity(intent);
 
     }
-
+public void onCheckboxClicked(View v){
+        check=cb.isChecked();
+}
 
 public void supprimerVaccin(View v){
 
     spinner2.setVisibility(View.VISIBLE);
     bouton_valider2.setVisibility(View.VISIBLE);
-    List<String> listeVaccins = new ArrayList<String>();
+    List<Vaccin> listeVaccins = new ArrayList<Vaccin>();
     listeVaccins=vaccinsDAO.getFromName( nom);
+    List<String> noms=new ArrayList<String>();
+    for(Vaccin vac:listeVaccins){
 
+        noms.add(vac.getdenomination());
+    }
     // Creating adapter for spinner
-    ArrayAdapter<String> dataAdapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, listeVaccins);
+    ArrayAdapter<String> dataAdapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, noms);
 
     // Drop down layout style - list view with radio button
     dataAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -215,6 +239,7 @@ public void supprimerVaccin(View v){
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
+
 
 
 

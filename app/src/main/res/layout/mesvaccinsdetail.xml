@@ -96,6 +96,16 @@
         android:layout_height="100dp"
         android:calendarTextColor="@color/black" />
 
+    <CheckBox android:id="@+id/checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Déjà réalisé"
+        android:visibility="visible"
+        android:textColor="#000000"
+        android:buttonTint="#000000"
+        android:onClick="onCheckboxClicked"/>
+
+
     <Button
         android:text="Valider l'ajout "
         android:layout_width="wrap_content"

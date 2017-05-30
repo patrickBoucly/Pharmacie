@@ -150,6 +150,7 @@ public class MesVaccins extends Activity {
 
         // supprimer le vaccin dans la base
         personnesDAO.open();
+
         personnesDAO.deletePersonne(personneASupprimer);
         personnesDAO.close();
 
