@@ -169,22 +169,27 @@ public class MainActivity extends Activity {
     public void vers_pharma(View v) {
         Intent intent = new Intent(this, MaPharma.class);
         startActivity(intent);
+        finish();
     }
     public void vers_ajouter_medic(View v) {
         Intent intent = new Intent(this, AjouterMedic.class);
         startActivity(intent);
+        finish();
     }
     public void vers_vaccin(View v) {
         Intent intent = new Intent(this, MesVaccins.class);
         startActivity(intent);
+        finish();
     }
     public void vers_geoloc(View v) {
         Intent intent = new Intent(this, Geoloc.class);
         startActivity(intent);
+        finish();
     }
     public void vers_scan(View v) {
         Intent intent = new Intent(this, Scan.class);
         startActivity(intent);
+        finish();
     }
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);

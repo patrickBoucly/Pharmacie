@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -50,6 +51,7 @@ public class Scan extends Activity implements  View.OnClickListener ,AdapterView
     private ListView resultats_scan;
     private CodeDAO dao=new CodeDAO(this);
     private String date="";
+    private Button mybutton;
 
 
 
@@ -59,8 +61,11 @@ public class Scan extends Activity implements  View.OnClickListener ,AdapterView
         super.onCreate(savedInstanceState);
         setContentView(R.layout.scan);
         resultats_scan = (ListView) findViewById(R.id.resultats_scan);
-        Button mybutton = (Button) findViewById(R.id.scan_button);
-        mybutton.setVisibility(View.INVISIBLE);
+        mybutton = (Button) findViewById(R.id.scan_button);
+        mybutton.setVisibility(View.VISIBLE);
+        if (dao.getAll().size() == 0) {
+            mybutton.setVisibility(View.INVISIBLE);
+        }
         mybutton.setOnClickListener(this);
 
         AssetManager mngr = this.getAssets();
@@ -132,68 +137,66 @@ public class Scan extends Activity implements  View.OnClickListener ,AdapterView
             TextView scan_content = (TextView) findViewById(R.id.scan_content);
 
 
-
-
-           // String scanContent="01034009300001201715081010234X22";
+            // String scanContent="01034009300001201715081010234X22";
             // si QRcode, on extrait le code CIP contenu à l'intérieur:
-            if (scanContent.length()>13 ){
-                // on récupère aussi la date de peremption:
-                date=scanContent.substring(19,23);
-                // puis le CIP:
-                scanContent=scanContent.substring(4,17);
-                Toast toasta=Toast.makeText(this,date, Toast.LENGTH_LONG);
-                Toast toastb=Toast.makeText(this, scanContent, Toast.LENGTH_LONG);
-                TextView va = (TextView) toasta.getView().findViewById(android.R.id.message);
-                va.setTextColor(Color.BLACK);
-                toasta.show();
-                TextView vb = (TextView) toasta.getView().findViewById(android.R.id.message);
-                vb.setTextColor(Color.BLACK);
-                toastb.show();
-                Log.i("blabla", "peremption "+date+" cip: "+scanContent);
-            }
 
+            if (!(scanContent == null)) {
 
-
-
-
-            // nous affichons le résultat dans nos TextView
-
-
-            cis=dao.getCIS(scanContent);
-            scan_format.setText("FORMAT: " + scanFormat);
-            scan_content.setText("CIS: " + cis);
-
-
-
-            //faire appel à okhttp pour recuperer le nom du medicament
-
-            String adresse = "https://open-medicaments.fr/api/v1/medicaments/"+ cis;
-            OkHttpClient okhttpClient = new OkHttpClient();
-            Request myGetRequest = new Request.Builder()
-                    .url(adresse)
-                    .build();
-
-            okhttpClient.newCall(myGetRequest).enqueue(new Callback() {
-                @Override
-                public void onFailure(Request request, IOException e) {
+                if (scanContent.length() > 13) {
+                    // on récupère aussi la date de peremption:
+                    date = scanContent.substring(19, 23);
+                    // puis le CIP:
+                    scanContent = scanContent.substring(4, 17);
+                    Toast toasta = Toast.makeText(this, date, Toast.LENGTH_LONG);
+                    Toast toastb = Toast.makeText(this, scanContent, Toast.LENGTH_LONG);
+                    TextView va = (TextView) toasta.getView().findViewById(android.R.id.message);
+                    va.setTextColor(Color.BLACK);
+                    toasta.show();
+                    TextView vb = (TextView) toasta.getView().findViewById(android.R.id.message);
+                    vb.setTextColor(Color.BLACK);
+                    toastb.show();
+                    Log.i("blabla", "peremption " + date + " cip: " + scanContent);
                 }
-                @Override
-                public void onResponse(Response response) throws IOException {
-                    //le retour est effectué dans un thread différent
-                    try {
-                        text = response.body().string();
-                        Log.i("test text", text);
-                        JSONObject json = new JSONObject(text);
-                        denom = json.getString("denomination");
-                        MedicDAO medicDAO= new MedicDAO(getApplicationContext());
-                        medicDAO.add(denom,cis,date);
-                        Intent n = new Intent(getApplicationContext(), MaPharma.class);
-                        startActivity(n);
 
-                    } catch (JSONException exc) {
 
-                        exc.printStackTrace();
+                // nous affichons le résultat dans nos TextView
+
+
+                cis = dao.getCIS(scanContent);
+                scan_format.setText("FORMAT: " + scanFormat);
+                scan_content.setText("CIS: " + cis);
+
+
+                //faire appel à okhttp pour recuperer le nom du medicament
+
+                String adresse = "https://open-medicaments.fr/api/v1/medicaments/" + cis;
+                OkHttpClient okhttpClient = new OkHttpClient();
+                Request myGetRequest = new Request.Builder()
+                        .url(adresse)
+                        .build();
+
+                okhttpClient.newCall(myGetRequest).enqueue(new Callback() {
+                    @Override
+                    public void onFailure(Request request, IOException e) {
                     }
+
+                    @Override
+                    public void onResponse(Response response) throws IOException {
+                        //le retour est effectué dans un thread différent
+                        try {
+                            text = response.body().string();
+                            Log.i("test text", text);
+                            JSONObject json = new JSONObject(text);
+                            denom = json.getString("denomination");
+                            MedicDAO medicDAO = new MedicDAO(getApplicationContext());
+                            medicDAO.add(denom, cis, date);
+                            Intent n = new Intent(getApplicationContext(), MaPharma.class);
+                            startActivity(n);
+
+                        } catch (JSONException exc) {
+
+                            exc.printStackTrace();
+                        }
                     /*
                     runOnUiThread(new Runnable() {
                         @Override
@@ -217,23 +220,22 @@ public class Scan extends Activity implements  View.OnClickListener ,AdapterView
                             });
                         }
                     }); // fin runOnUiThread   */
-                } // fin onResponse
-            });
+                    } // fin onResponse
+                });
+            }else{
+                Intent n = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(n);
+                finish();
 
+            }
 
+            } else {
+                Toast toast = Toast.makeText(this, "Aucune donnée reçue !", Toast.LENGTH_SHORT);
+                TextView v3 = (TextView) toast.getView().findViewById(android.R.id.message);
+                v3.setTextColor(Color.BLACK);
+                toast.show();
+            }
 
-
-
-
-
-
-        }
-        else{
-            Toast toast=Toast.makeText(this, "Aucune donnée reçue !", Toast.LENGTH_SHORT);
-            TextView v3 = (TextView) toast.getView().findViewById(android.R.id.message);
-            v3.setTextColor(Color.BLACK);
-            toast.show();
-        }
 
     }
 
@@ -282,6 +284,7 @@ public class Scan extends Activity implements  View.OnClickListener ,AdapterView
     public void vers_accueil (View v) {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+        finish();
     }
 
 

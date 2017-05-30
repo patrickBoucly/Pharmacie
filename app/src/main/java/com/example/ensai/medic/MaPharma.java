@@ -66,6 +66,7 @@ public class MaPharma extends Activity {
                             Log.i("peremtion : ",m.getPeremption());
                             i.putExtra("peremption",m.getPeremption());
                             startActivity(i);
+                            finish();
                         } catch(ActivityNotFoundException e) {
                             Log.i("erreur",""+e.getMessage());
                             Toast toast=Toast.makeText(getApplicationContext(), "GoogleMap non trouvé", Toast.LENGTH_LONG);
@@ -96,6 +97,7 @@ public class MaPharma extends Activity {
     public void vers_accueil (View v) {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+        finish();
     }
 
 

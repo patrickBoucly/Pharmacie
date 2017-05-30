@@ -70,6 +70,7 @@ public class MesVaccins extends Activity {
                 Intent i = new Intent(getApplicationContext(), MesVaccinsDetail.class);
                 i.putExtra("nom", resultats_personnes.getItemAtPosition(position).toString());
                 startActivity(i);
+                finish();
 
             }
         });
@@ -125,6 +126,7 @@ public class MesVaccins extends Activity {
 
             Intent intent = new Intent(this, MesVaccins.class);
             startActivity(intent);
+            finish();
         }
 
 
@@ -181,6 +183,7 @@ public class MesVaccins extends Activity {
 
         Intent intent = new Intent(this, MesVaccins.class);
         startActivity(intent);
+        finish();
 
     }
 
@@ -191,6 +194,7 @@ public class MesVaccins extends Activity {
     public void vers_accueil (View v) {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+        finish();
     }
 
 }

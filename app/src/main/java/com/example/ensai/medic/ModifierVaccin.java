@@ -52,6 +52,7 @@ public class ModifierVaccin extends Activity {
         Intent intent = new Intent(this, MesVaccinsDetail.class);
         intent.putExtra("nom",ind);
         startActivity(intent);
+        finish();
     }
     public void modifierDate(View v) {
         dp.setVisibility(View.VISIBLE);
@@ -67,6 +68,7 @@ public class ModifierVaccin extends Activity {
         Intent intent = new Intent(this, MesVaccinsDetail.class);
         intent.putExtra("nom",ind);
         startActivity(intent);
+        finish();
     }
 
 

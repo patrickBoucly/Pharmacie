@@ -58,6 +58,7 @@ public class SelectedMedic extends Activity {
         dao.deleteMedicName(nomMedic);
         Intent i=new Intent(this,MaPharma.class);
         startActivity(i);
+        finish();
     }
     public void information(View v) {
         MedicDAO dao=new MedicDAO(this);
@@ -94,12 +95,14 @@ public class SelectedMedic extends Activity {
         i.putExtra("monmedic", nomMedic);
         i.putExtra("peremption",dateStr);
         startActivity(i);
+        finish();
     }
 
 
     public void vers_accueil (View v) {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+        finish();
     }
 
 

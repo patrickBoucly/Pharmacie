@@ -93,6 +93,7 @@ public class MesVaccinsDetail extends Activity {
                 n.putExtra("fait", vaccins.get(position).getRealise());
                 Log.i("Envoi", "" + resultats_vaccins.getItemAtPosition(position).toString());
                 startActivity(n);
+                finish();
 
             }
         });
@@ -188,6 +189,7 @@ public class MesVaccinsDetail extends Activity {
         Intent intent = new Intent(this, MesVaccinsDetail.class);
         intent.putExtra("nom", nom);
         startActivity(intent);
+        finish();
 
     }
 public void onCheckboxClicked(View v){
@@ -248,12 +250,14 @@ public void supprimerVaccin(View v){
         Intent intent = new Intent(this, MesVaccinsDetail.class);
         intent.putExtra("nom", nom);
         startActivity(intent);
+        finish();
 
     }
 
     public void vers_accueil (View v) {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+        finish();
     }
 
 

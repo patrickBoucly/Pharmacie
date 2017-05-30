@@ -289,6 +289,7 @@ public class Geoloc extends Activity {
     public void vers_accueil (View v) {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+        finish();
     }
 
 

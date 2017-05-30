@@ -35,17 +35,17 @@ public class AjouterMedic extends Activity implements View.OnClickListener,Adapt
     private EditText tv3;
     private String text;
     private String denom;
-    private Button bouton_ajouter;
+   // private Button bouton_ajouter;
     private Button bouton_rechercher;
     private ListView resultats;
-    private ArrayList<Medic> medics= new ArrayList<Medic>();
+    private ArrayList<Medic> medics;
     private MedicDAO medicDAO;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ajoutermedic);
         tv3=(EditText) findViewById(R.id.tv3);
-        bouton_ajouter = (Button) findViewById(R.id.bouton_ajouter);
+        //bouton_ajouter = (Button) findViewById(R.id.bouton_ajouter);
         bouton_rechercher = (Button) findViewById(R.id.bouton_rechercher);
         resultats = (ListView) findViewById(R.id.resultats);
         bouton_rechercher.setOnClickListener(this);
@@ -73,6 +73,7 @@ public class AjouterMedic extends Activity implements View.OnClickListener,Adapt
                     public void onResponse(Response response) throws IOException {
                         //le retour est effectué dans un thread différent
                         try {
+                            medics= new ArrayList<Medic>();
                             text = response.body().string();
                             JSONArray json = new JSONArray(text);
                             for (int i = 0; i < json.length(); i++) {
@@ -113,6 +114,7 @@ public class AjouterMedic extends Activity implements View.OnClickListener,Adapt
                                             medicDAO.add(name,cis,date);
                                             Intent n = new Intent(getApplicationContext(), MaPharma.class);
                                             startActivity(n);
+                                            finish();
                                     }
                                 });
                             }
@@ -132,6 +134,7 @@ public class AjouterMedic extends Activity implements View.OnClickListener,Adapt
     public void vers_accueil (View v) {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+        finish();
     }
 
 }
