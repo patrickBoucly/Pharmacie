@@ -72,9 +72,9 @@ public class MesVaccinsDetail extends Activity {
         List<String> message=new ArrayList<String>();
         for(Vaccin v:vaccins){
             Log.i("getrea:",""+v.getRealise());
-            String fait=" pas encore réalisé";
+            String fait=" vaccination à faire pour le ";
             if(v.getRealise()==1){
-                fait=" a été réalisé";
+                fait=" vaccination faite le ";
             }
             message.add(v.getdenomination()+" :"+fait+"   "+v.getDate());
         }

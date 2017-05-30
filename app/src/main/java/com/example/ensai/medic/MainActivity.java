@@ -32,6 +32,9 @@ public class MainActivity extends Activity {
     public static MySQLiteHelper bdd=null;
     private MedicDAO dao=new MedicDAO(this);
     private static final int REQUEST_ACCESS_CAMERA = 110 , REQUEST_ACCESS_FINE_LOCATION = 111, REQUEST_ACCESS_COARSE_LOCATION = 112;
+    private PendingIntent pendingIntentVac;
+    private PendingIntent pendingIntentMed;
+    private int i=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,27 +55,28 @@ public class MainActivity extends Activity {
         Log.i("today",""+date);
         ArrayList<Medic> mesMedic=( ArrayList<Medic> )dao.getAllMedics();
         for(Medic m:mesMedic){
-            int madate=Integer.parseInt(m.getPeremption());
-            int i=0;
-            Log.i("med",""+madate);
+            if(m.getPeremption().length()>3) {
+                int madate = Integer.parseInt(m.getPeremption());
+                Log.i("med", "" + madate);
+                if (madate < date) {
+                    i=i+1;
+                    Log.i("medp", "perimé!");
+                    String message = "Votre " + m.getName() + "est périmé!)";
+                    Intent intent = new Intent(this, MaPharma.class);
+                    pendingIntentMed = PendingIntent.getActivity(this, i, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                    NotificationCompat.Builder mBuilder =
+                            new NotificationCompat.Builder(this)
+                                    .setSmallIcon(R.drawable.launcher)
+                                    .setContentTitle("Médicament expiré")
+                                    .setContentText(message)
+                                    .setContentIntent(pendingIntentMed);
 
-            if(madate<date){
-                Log.i("medp","perimé!");
-                String message="Votre "+m.getName()+"est périmé!)";
-                Intent intent = new Intent(this, MaPharma.class);
-                PendingIntent pendingIntent = PendingIntent.getActivity(this, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-                NotificationCompat.Builder mBuilder =
-                        new NotificationCompat.Builder(this)
-                                .setSmallIcon(R.drawable.new_medic)
-                                .setContentTitle("Médicament expiré")
-                                .setContentText(message)
-                                .setContentIntent(pendingIntent);
 
+                    mBuilder.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
+                    NotificationManager notificationManager = (NotificationManager) getSystemService(this.NOTIFICATION_SERVICE);
+                    notificationManager.notify(i, mBuilder.build());
 
-                mBuilder.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
-                NotificationManager notificationManager = (NotificationManager) getSystemService(this.NOTIFICATION_SERVICE);
-                notificationManager.notify(i, mBuilder.build());
-
+                }
             }
         }
 
@@ -109,20 +113,21 @@ public class MainActivity extends Activity {
                     }
 
                 }
-                int i = 0;
+
                 Log.i("med", "" + madate);
 
                 if (madate < dateJour && v.getRealise()==0) {
+                    i=i+1;
                     Log.i("vac", "à faire!");
                     String message = v.getIndividu() + " doit faire le vaccin " + v.getdenomination() + " avant le " + v.getDate();
                     Intent intent = new Intent(this, MesVaccins.class);
-                    PendingIntent pendingIntent = PendingIntent.getActivity(this, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                    pendingIntentVac = PendingIntent.getActivity(this, i, intent, PendingIntent.FLAG_UPDATE_CURRENT);
                     NotificationCompat.Builder mBuilder =
                             new NotificationCompat.Builder(this)
                                     .setSmallIcon(R.drawable.new_medic)
                                     .setContentTitle("Vaccin en approche!")
                                     .setContentText(message)
-                                    .setContentIntent(pendingIntent);
+                                    .setContentIntent(pendingIntentVac);
 
 
                     mBuilder.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
