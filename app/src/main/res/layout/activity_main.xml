@@ -31,10 +31,12 @@
         android:background="#e4f4e9"
         android:orientation="vertical" >
 
-        <View
-            android:layout_width="fill_parent"
-            android:background="#e4f4e9"
-            android:layout_height="80px" />
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="372dp"
+            android:layout_height="91dp"
+            android:layout_gravity="center"
+            android:src="@drawable/pharmacie" />
 
         <Button
             android:id="@+id/menu_pharma"

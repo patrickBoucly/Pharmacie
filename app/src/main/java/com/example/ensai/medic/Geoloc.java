@@ -181,7 +181,7 @@ public class Geoloc extends Activity {
 
                                 // on lance la requete des pharmacies autour
 
-                                Log.d("coord", "location=" + latitude + "," + longitude + "&radius=2000");
+                                Log.d("coord", "location=" + latitude + "," + longitude + "&radius=5000");
 
                                 OkHttpClient okhttpClient = new OkHttpClient();
                                 Request myGetRequest = new Request.Builder()
@@ -285,7 +285,7 @@ public class Geoloc extends Activity {
                     // functionality that depends on this permission.
                     Log.d("ERREUR", "erreur de permission");
                 }
-                return ;
+
             }
             // other 'case' lines to check for other
             // permissions this app might request
