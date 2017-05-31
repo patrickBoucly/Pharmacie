@@ -71,7 +71,11 @@ public class ModifierVaccin extends Activity {
         finish();
     }
 
-
+    public void vers_accueil (View v) {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
 
 
 }
