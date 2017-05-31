@@ -185,7 +185,7 @@ public class Geoloc extends Activity {
 
                                 OkHttpClient okhttpClient = new OkHttpClient();
                                 Request myGetRequest = new Request.Builder()
-                                        .url("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + latitude + "," + longitude + "&radius=1500&types=pharmacy&key=AIzaSyD1syvaUahKlwgsvgHZhzHtFwcHHAblNHQ")
+                                        .url("https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + latitude + "," + longitude + "&radius=5000&types=pharmacy&key=AIzaSyD1syvaUahKlwgsvgHZhzHtFwcHHAblNHQ")
                                         .build();
 
 
